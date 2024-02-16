@@ -1,0 +1,16 @@
+
+  <div [ngClass]="[ShowElement == true ? 'dashboard-main-wrapper' : '']">
+    <app-header *ngIf="ShowElement"></app-header>
+    <app-menu [Activeurl]="activeurl" *ngIf="ShowElement"></app-menu>
+    <div [ngClass]="[ShowElement == true ? 'dashboard-wrapper' : '']">
+      <div [ngClass]="[ShowElement == true ? 'container-fluid  dashboard-content' : '']">
+        <router-outlet (activate)="ChangeRouteName($event)"></router-outlet>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+
+<app-notification></app-notification>
+<ng4-loading-spinner> </ng4-loading-spinner>
+
+

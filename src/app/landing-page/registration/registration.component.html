@@ -1,0 +1,175 @@
+
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0">
+    <div class="board" id="process-completed">
+      <ul class="nav nav-tabs steps steps-5">
+        <div class="liner"></div>
+        <li rel-index="0" 
+            [ngClass]="[ShowTabName == 'basic' ? 'active' : UserComplete ? 'completed' : '']">
+          <a href="#step-1" class="btn" (click)="navigation('basic')" aria-controls="step-1"
+             role="tab" data-toggle="tab">
+            <span>Basic Details</span>
+          </a>
+        </li>
+
+        <li rel-index="1" *ngIf="(IsPartnerActive && AddEdit =='Edit') || IsPartnerActive" 
+            [ngClass]="[ShowTabName == 'questionnaire' ? 'active' : userData.Is_BasicInfo_completed ? 'completed' : '']">
+          <a href="#step-2" class="btn" (click)="navigation('questionnaire')"
+             aria-controls="step-2" role="tab" data-toggle="tab">
+            <!-- disabled -->
+            <span>Questionnaire</span>
+          </a>
+        </li>
+        <li rel-index="2" *ngIf="(IsPartnerActive && AddEdit =='Edit') || IsPartnerActive" 
+            [ngClass]="[ShowTabName == 'kyc' ? 'active' : userData.Is_Questionnarie_completed ? 'completed' : '']">
+          <a href="#step-3" class="btn" (click)="navigation('kyc')" aria-controls="step-3"
+             role="tab" data-toggle="tab">
+            <span>KYC Details</span>
+          </a>
+        </li>
+
+        <li rel-index="1"  *ngIf="(IsPartnerActive && AddEdit =='Edit') || IsPartnerActive" 
+            [ngClass]="[ShowTabName == 'otherdetails' ? 'active' : userData.Is_Kyc_completed ? 'completed' : '']">
+          <a href="#step-2" class="btn" (click)="navigation('otherdetails')"
+             aria-controls="step-2" role="tab" data-toggle="tab">
+            <!-- disabled -->
+            <span>Other Details</span>
+          </a>
+        </li>
+        <li rel-index="3" *ngIf="(IsPartnerActive && AddEdit =='Edit' &&  isKYCComplete)"
+            [ngClass]="[ShowTabName == 'business' ? 'active' : userData.Is_OtherDetails_completed ? 'completed' : '']">
+          <a href="#step-3" class="btn " (click)="navigation('business')" aria-controls="step-3"
+             role="tab" data-toggle="tab">
+            <span>Business Details</span>
+          </a>
+        </li>
+        <!--*ngIf="IsPartnerActive && AddEdit =='Edit' && isKYCComplete"-->
+        <li rel-index="4" *ngIf="IsPartnerActive && AddEdit =='Edit' && isKYCComplete"
+            [ngClass]="[ShowTabName == 'product' ? 'active' : userData.Is_Business_Completed ? 'completed' : '']">
+          <a href="#step-4" class="btn" (click)="navigation('product')" aria-controls="step-4"
+             role="tab" data-toggle="tab">
+            <span>Product/Service Details</span>
+          </a>
+        </li>
+        <li rel-index="5"  *ngIf="(IsPartnerActive && AddEdit =='Edit') || IsPartnerActive" 
+            [ngClass]="[ShowTabName == 'connection' ? 'active' : userData.Is_Product_Completed ? 'completed' : '']">
+          <a href="#step-5" class="btn" (click)="navigation('connection')" aria-controls="step-5"
+             role="tab" data-toggle="tab">
+            <span>Partner Connections</span>
+          </a>
+        </li>
+        <li rel-index="6"  *ngIf="(IsPartnerActive && AddEdit =='Edit') || IsPartnerActive"
+            [ngClass]="[ShowTabName == 'Referral' ? 'active' : userData.Is_Connection_Completed ? 'completed' : '']">
+          <a href="#step-6" class="btn" (click)="navigation('partner_referal')" aria-controls="step-6"
+             role="tab" data-toggle="tab">
+            <span>Partner Referral</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+      <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 card card-border-panle"> -->
+
+<!-- </div> -->
+  
+  <!-- <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12 p-0">
+      <div class="board" id="process-completed">
+          <button type="button" class="btn btn-primary" (click)="AddNewPartner()">Add New Partner</button>      
+      </div>
+    </div> -->
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0">
+      
+    <div class="card card-border-panle">
+      
+      <!--<div class="card-header bck-white">Registration</div>-->
+      <div class="card-body">
+          <div  class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 pull-right">
+              <div class="board" id="process-completed">
+                <button  class="btn btn-primary add-right" type="button" (click)="AddNewPartner()">Add New Member</button>
+              </div>
+          <hr>
+         
+        <!--<div class="tab-content nav-tab-content border tab-style">-->
+
+
+          <app-basic-info *ngIf="ShowTabName == 'basic'" (onRolePicked)="onRolePicked($event)" [(UserDetails)]="UserDetails" [(UserData)]="userData"
+                          (next_page)="next_page($event)"  (IsDirtyform)="IsDirtyform($event)"> 
+          </app-basic-info>
+
+          <app-other-details [IsKYCComplete]="isKYCComplete" *ngIf="ShowTabName == 'otherdetails'" [(UserOtherDetails)]="UserOtherDetails" [PartnerRole]="PartnerRole" [PartnerId]="PartnerId" [(UserData)]="userData"
+                             (next_page)="next_page($event)" (IsDirtyform)="IsDirtyform($event)" (previous_page)="previous_page($event)"></app-other-details>
+
+          <app-questionnaire *ngIf="ShowTabName == 'questionnaire'" (IsDirtyform)="IsDirtyform($event)"  (previous_page)="previous_page($event)" [(UserDetails)]="UserDetails" [(UserData)]="userData"
+                             (next_page)="next_page($event)"></app-questionnaire>
+
+          <app-kyc-details *ngIf="ShowTabName == 'kyc'" [PartnerId]="PartnerId" (iskycCompleted)="iskycCompleted($event)" (Addedit)="Addedit($event)"  (isPartnerActive)="isPartnerActive($event)" (previous_page)="previous_page($event)" [(UserKycData)]="UserKycData" [(UserData)]="userData"
+                           (next_page)="next_page($event)" (IsDirtyform)="IsDirtyform($event)">
+          </app-kyc-details>
+         
+          <app-business-list [isKYCComplete]="isKYCComplete" [Role]="Role" [PartnerId]="PartnerId" (IsDirtyform)="IsDirtyform($event)"
+           (previous_page)="previous_page($event)" [(UserData)]="userData" (next_page)="next_page($event)" *ngIf="ShowTabName == 'business'">
+
+          </app-business-list>
+          
+          <app-product-list [PartnerId]="PartnerId"  [BusinessId]="BusinessId" (next_page)="next_page($event)"
+           *ngIf="ShowTabName == 'product'" (IsDirtyform)="IsDirtyform($event)" (previous_page)="previous_page($event)" [(UserData)]="userData">
+
+          </app-product-list>
+
+          <app-partner-connection [PartnerId]="PartnerId" *ngIf="ShowTabName == 'connection'" (next_page)="next_page($event)" (previous_page)="previous_page($event)" [(UserData)]="userData">
+
+          </app-partner-connection>
+          <app-partne-referrral-list [PartnerId]="PartnerId" [PartnerRole]="PartnerRole" *ngIf="ShowTabName == 'Referral'">
+
+          </app-partne-referrral-list>
+        <!--</div>-->
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<button id="openModal_Button" style="height: 0px; width:0px;color: #fff;background-color: #efeff6;
+border-color: #efeff6;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#saveModal" [hidden]="true"></button>
+
+
+
+
+
+<div id="saveModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">  
+
+   
+    <div class="modal-content">          
+          <form   #closemodal data-dismiss="modal">
+      <div class="modal-header">
+        <!-- <h4 class="modal-title">Save and Next</h4> -->
+        <button type="button" class="close" #closemodal data-dismiss="modal">&times;</button>
+      
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-md-12" style="text-align: center;">           
+              <label>Navigating away may lead to data loss. Do you want to continue?</label>
+             
+         </div>
+        
+    
+      </div>
+      </div>
+      <div class="modal-footer">
+
+       <button type="button" class="btn btn-primary"  #closemodal data-dismiss="modal" (click)="save(false)">Yes</button>      
+       <button type="button" class="btn btn-primary"  #closemodal data-dismiss="modal" (click)="save(true)">No</button>
+      </div>
+  </form>
+    </div>
+
+  </div>
+</div>
+
+
+
+

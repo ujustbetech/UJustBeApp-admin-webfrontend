@@ -1,0 +1,88 @@
+<!-- <div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+
+  </div>
+</div>  -->
+
+<div role="tabpanel" class="tab-pane active" id="step-1">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+
+    <span><small>Mentor</small></span>
+    <div class="row">
+      <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4 mb-10" *ngFor="let mlist of MentorList">
+        <li class="list-group-item social-sales-content">
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+              <div class="user-img">
+                <img src="{{mlist.base64Image}}" class="user-img" onError="this.src='assets/images/user.png'">
+              </div>
+            </div>
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-9">
+              <div class="mentor-name">
+                {{mlist.firstName}} {{mlist.lastName}}
+              </div>
+              <div class="mentor-role">
+                {{mlist.role}}
+              </div>
+              <div class="mentor-emailid">
+                <span class="env-font">
+                  <i class="far fa-envelope" style="  color: #9c9eb3;"></i>
+                </span>
+                <span class="env-mail">{{mlist.emailId}}</span>
+              </div>
+              <div class="mentor-mobile-no">
+                <span class="mob-font"><i class="fas fa-mobile-alt" style="  color: #9c9eb3;"></i></span>
+                <span>{{mlist.countryCode}} {{mlist.mobileNumber}}</span>
+              </div>
+            </div>
+          </div>
+        </li>
+        </div>
+      </div>
+        <hr>
+        <span>
+          <small>Connects</small><label class="error" *ngIf="IsNOConnets">(No Connects Yet)</label>
+
+        </span>
+
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4 mb-10" *ngFor="let clist of ConnectorList" style="margin-bottom: 10px;">
+            <li class="list-group-item social-sales-content">
+              <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                  <div class="user-img">
+                    <img src="{{clist.base64Image}}" class="user-img" onError="this.src='assets/images/user.png'">
+                  </div>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+                  <div class="mentor-name">
+                    {{clist.firstName}} {{clist.lastName}}
+                  </div>
+                  <div class="mentor-role">
+                    {{clist.role}}
+                  </div>
+                  <div class="mentor-emailid">
+                    <span class="env-font">
+                      <i class="far fa-envelope"></i>
+                    </span>
+                    <span class="env-mail"> {{clist.emailId}}</span>
+                  </div>
+                  <div class="mentor-mobile-no">
+                    <span class="mob-font"><i class="fas fa-mobile-alt"></i></span>
+                    <span>  {{clist.countryCode}} {{clist.mobileNumber}}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-footer pb-0">
+        <div class="row mb-10">
+
+          <!-- <button type="button" (click)="Backpage();" class="btn btn-primary btn-small mt-50 mb-10 mr-10">Back</button>  -->
+          <button type="button" (click)="GoToNext();" class="btn btn-primary btn-small mt-50 mb-10 mr-10">Next</button>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>UJB</title>
+  <base href="/">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/vendor/fonts/circular-std/style.css">
+  <link rel="stylesheet" href="assets/libs/css/style.css">  
+  <link href="assets/libs/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+  <link rel="stylesheet" href="assets/libs/css/ag-grid.css">
+  <link rel="stylesheet" href="assets/libs/css/ag-theme-balham.css">
+  <!-- <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css"> -->
+  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"/>
+
+
+
+
+<script>
+    var appLocation = '';
+    var boilerplatePath = '';
+    var systemJsMap = {"@ag-grid-community\/all-modules\/dist\/styles\/ag-grid.css":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/styles\/ag-grid.css","@ag-grid-community\/all-modules\/dist\/styles\/ag-theme-balham-dark.css":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/styles\/ag-theme-balham-dark.css","@ag-grid-community\/all-modules\/dist\/styles\/ag-theme-balham.css":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/styles\/ag-theme-balham.css","@ag-grid-community\/all-modules\/dist\/styles\/ag-theme-blue.css":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/styles\/ag-theme-blue.css","@ag-grid-community\/all-modules\/dist\/styles\/ag-theme-bootstrap.css":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/styles\/ag-theme-bootstrap.css","@ag-grid-community\/all-modules\/dist\/styles\/ag-theme-dark.css":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/styles\/ag-theme-dark.css","@ag-grid-community\/all-modules\/dist\/styles\/ag-theme-fresh.css":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/styles\/ag-theme-fresh.css","@ag-grid-community\/all-modules\/dist\/styles\/ag-theme-material.css":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/styles\/ag-theme-material.css","@ag-grid-community\/react":"npm:@ag-grid-community\/react@22.0.0\/","@ag-grid-community\/angular":"npm:@ag-grid-community\/angular@22.0.0\/","@ag-grid-community\/vue":"npm:@ag-grid-community\/vue@22.0.0\/"};
+    var systemJsPaths = {"@ag-grid-community\/all-modules":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/ag-grid-community.cjs.js","@ag-grid-community\/client-side-row-model":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/ag-grid-community.cjs.js","@ag-grid-community\/core":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/ag-grid-community.cjs.js","@ag-grid-community\/csv-export":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/ag-grid-community.cjs.js","@ag-grid-community\/infinite-row-model":"https:\/\/unpkg.com\/@ag-grid-community\/all-modules@22.0.0\/dist\/ag-grid-community.cjs.js"};
+</script>
+
+  <style>
+    .cdk-overlay-container { z-index: 2000 !important; }
+    .cdk-overlay-pane { z-index: 2000 !important; }
+    /* .mat-autocomplete-panel { z-index: 2000 !important; } */
+    owl-date-time-container { width: 232px !important; height: 210px !important; }
+
+    /* .lb-outerContainer{
+  margin-top: 116px !important;
+}
+     */
+.lightbox .lb-container{
+  margin-top: 116px !important;
+}
+
+.lb-close
+{
+  margin-right: 616px;
+    margin-top: 47px;
+    right: 30px !important;
+    top: 0;
+    opacity: 1 !important;
+    transition: opacity 0.2s;
+    margin-right: 0px;
+    margin-top: 0px;
+}
+img:hover {
+  cursor: pointer !important;
+}
+
+
+.ag-theme-balham .kyc-rejected{
+    background-color:#ffd9d9 !important;
+}
+.ag-theme-balham .kyc-pending{
+    background-color: #e4e4e4 !important;
+}
+.ag-theme-balham .kyc-approved{
+    background-color: #ffffff !important;
+}
+
+.ag-theme-balham .kyc-not-complete{
+    background-color: #d9fdff !important;
+}
+
+.ag-theme-balham .bank-not-complete{
+    background-color: #f5f3db !important;
+}
+    html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+        -webkit-overflow-scrolling: touch;
+    }
+    html {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0;
+        overflow: auto;
+    }
+    /* body {
+        padding: 0px;
+        overflow: auto;
+        height: auto;
+    } */
+    .mat-autocomplete-panel.mat-autocomplete-visible { background: #fff !important; }
+  </style>
+</head>
+
+<body>
+  <!-- <div class="wrapper"> -->
+  <app-root></app-root>
+  <!-- </div> -->
+
+
+ 
+  <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
+  
+  <!-- <script src="assets/js/horizantal-tabbed.js"></script> -->
+
+  
+
+
+
+  <script>
+    $(document).ready(function () {
+      $('#nav-icon1').click(function () {
+        $(this).toggleClass('open');
+      });
+    });
+  </script>
+  <script>
+    var menuDesktopHidden, menuMobileShown;
+    function loaded() {
+      menuDesktopHidden = false;
+      menuMobileShown = false;
+    };
+    function switchMenu() {
+      if (window.outerWidth <= 1024) {
+        menuMobileShown = !menuMobileShown;
+      } else {
+        menuDesktopHidden = !menuDesktopHidden;
+      }
+      var element = document.getElementsByClassName("wrapper")[0];
+      if (menuMobileShown) {
+        element.classList.add("menu-mobile-shown");
+      } else {
+        element.classList.remove("menu-mobile-shown");
+      }
+      if (menuDesktopHidden) {
+        element.classList.add("menu-desktop-hidden");
+      } else {
+        element.classList.remove("menu-desktop-hidden");
+      }
+    };
+  </script>
+
+</body>
+
+</html>

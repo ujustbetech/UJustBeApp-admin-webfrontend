@@ -1,0 +1,327 @@
+<!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-10">
+  <div class="card">
+    <div class="card-header">Add Business Details</div>
+    <div class="card-body"> -->
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0">
+  <form [formGroup]="BusinessForm" (ngSubmit)="FormSubmit()" class="form-row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-header">Business Details</div>
+        <div class="card-body card-border-panle pt-5">
+          <div class="row">
+            <!--<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0">-->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 m-b-10 ">
+              <label for="inputUserName">Business/Professional Categories<span class="req">*</span></label>
+
+              <select class="form-control"  id="cat" multiple="multiple" formControlName="categories"  (change)="SelectedCategories()">
+                <!-- <option disabled>-select-</option> -->
+                <option *ngFor="let cl of categoryList" [value]="cl.catId">{{cl.categoryName}}</option>
+              </select>
+              <div class="error" id="CategoryRequired" *ngIf="BusinessForm.get('categories').hasError('required') && DisplayError">
+                Category is required.
+              </div>
+              <div class="error" *ngIf="lengthError">
+                Select Maximum 2 Categories.
+              </div>
+              <div class="error" *ngIf="IspercentageShare">
+                  Combination of this categories not allowed
+              </div>
+
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 m-b-10">
+              <label for="inputlastname">Description<span class="req">*</span></label>
+              <textarea data-parsley-trigger="change" formControlName="BusinessDescription"
+                        placeholder="" autocomplete="off" class="form-control" rows="3"></textarea>
+                        <div class="error" *ngIf="BusinessForm.get('BusinessDescription').hasError('required') && DisplayError">
+                          Business Description is required.
+                        </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 m-b-10">
+            </div>
+            <!--</div>-->
+            <!--<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0">-->
+<!-- 
+                <div class="col-md-12 col-sm-12 col-xs-12 m-t-10">
+                   
+                    </div> -->
+
+            <div class="col-md-12 col-sm-12 col-xs-12 m-t-10">
+               
+                <div class="row">
+                    <div _ngcontent-c9="" class="col-md-12 col-sm-12 col-xs-12 m-b-10"><h1 _ngcontent-c9="" class="title-style">Business Information</h1></div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+                    <label>Are You<span class="req">*</span></label>
+                    <select class="form-control" formControlName="UserType" id="areyou" (change)="YouAreSelect($event)">
+                      <option selected value="">-Select-</option>
+                      <option value="1">Individual/Proprietor </option>
+                      <option value="2">Partnership Firm </option>
+                      <option value="3">LLP </option>
+                      <option value="4">Company </option>               
+                      
+                    </select>
+                    <div class="error" *ngIf="BusinessForm.get('UserType').hasError('required') && DisplayError">
+                        Are You is required.
+                      </div>
+                    </div>
+  
+                    <div *ngIf="IsPartnershipFirm" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+                        <label>Name of Partner </label>
+                        <input type="text" formControlName="NameofPartner" data-parsley-trigger="change"
+                               placeholder="" autocomplete="off" class="form-control">
+                               <div class="error" *ngIf="BusinessForm.get('NameofPartner').hasError('required') && DisplayError">
+                                  Name of Partner is required.
+                                </div>
+                              </div>
+  
+                      <div  *ngIf="IsLLP"class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+                          
+                        <label>Designated Partner</label>
+                          <input type="text" formControlName="NameofPartner" data-parsley-trigger="change"
+                                 placeholder="" autocomplete="off" class="form-control">
+                                 <div class="error" *ngIf="BusinessForm.get('NameofPartner').hasError('required') && DisplayError">
+                                    Designated Partner is required.
+                                  </div>
+                        </div>
+                  </div>
+            
+                <div class="row">
+                
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3  m-b-10">
+                  <label for="inputlastname">Business Title/Tagline</label>
+                  <input type="text" formControlName="tagLine" data-parsley-trigger="change"
+                         placeholder="" autocomplete="off" class="form-control">
+                  <!-- <div class="error" *ngIf="BusinessForm.get('tagLine').hasError('required') && DisplayError">
+                    Business Tag Line is required.
+                  </div> -->
+                  <input type="hidden" formControlName="userId">
+                  <input type="hidden" formControlName="businessId">
+                  <input type="hidden" formControlName="createdBy">
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3  m-b-10">
+                  <label for="inputEmail">Email Id</label>
+                  <input type="email" formControlName="BusinessEmail"
+                         placeholder="" class="form-control" maxlength="50">
+                  <div class="error"  *ngIf="BusinessForm.controls.BusinessEmail.errors?.EmailInvalid && BusinessForm.controls['BusinessEmail'].dirty">
+                    Please enter valid Email Id</div> 
+                  <!-- <div class="error" *ngIf="BusinessForm.controls.BusinessEmail.hasError('pattern')">
+                    Please Enter Valid Email Id
+                  </div> -->
+                  <!-- <div class="error" *ngIf="BusinessForm.get('BusinessEmail').hasError('maxlength') && DisplayError">
+                    Maxmium
+                    50 Charcter Allowed
+                  </div> -->
+
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3  m-b-10">
+                  <label for="inputlastname">Corporate URL</label>
+                  <input type="text" formControlName="WebsiteUrl" data-parsley-trigger="change"
+                         placeholder="" autocomplete="off" class="form-control">
+                  <div class="error" *ngIf="BusinessForm.get('WebsiteUrl').hasError('pattern')">Please Enter Valid URL.</div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+                    <label for="inputlastname">Company Name<span class="req">*</span></label>
+                    <input type="text" formControlName="companyName" data-parsley-trigger="change"
+                           placeholder="" autocomplete="off" class="form-control">
+                   <div class="error" *ngIf="BusinessForm.get('companyName').hasError('required') && DisplayError">
+                      Company Name is required.
+                    </div>
+                  </div>
+               
+              </div>
+            </div>
+
+         
+
+
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12 m-t-10">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <h1 class="title-style">Upload Logo  (.jpeg,.png,.jpg,.JPEG,.PNG,.JPG)</h1>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 m-b-0 p-0">
+                  <div class="upload-back pl-0 pr-0 pb-0">
+                    <div class="col-md-6 pull-left">
+                      <label>Preview of Company logo</label>
+                      <span class="pull-left">
+                        <div class="preview">
+                          <img [src]="FileURL_Logo" (click)="openImage('CompanyLogo')" class="imgpreview" onError="this.src='assets/images/default-img.png'">
+                        </div>
+                      </span>
+                    </div>
+                    <div class="col-md-6 pull-left">
+                      <span class="pull-left">
+                        <label for="inputlastname">Upload Your Company Logo</label>
+                      </span>
+                      <span class="pull-left">
+                        <input type="file" accept=".jpeg,.png,.jpg,.JPEG,.PNG,.JPG" (change)="GetUploadFileData($event);" data-parsley-trigger="change"
+                               placeholder="" autocomplete="off" class="form-control image-padding custom-file-input">
+                        <div class="error" *ngIf="typeerror">File Format Not Valid</div>
+                      </span>
+                      <!-- <span class="pull-left m-t-5">
+                        <a href="#" class="remove-link">Remove logo</a>
+                      </span> -->
+                    </div>
+
+                  </div>
+                  </div>
+                  
+                </div>
+            </div>
+            <!--</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-10">
+      <div class="card">
+        <div class="card-header">Business Address (Please verify the address as it will be appearing in the Membership agreement)</div>
+        <div class="card-body card-border-panle pt-5">
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+              <label for="inputlastname"> Location<span class="req">*</span></label>
+              <input type="text" formControlName="Location" data-parsley-trigger="change" (keyup)="onKey1()"
+                     placeholder="" autocomplete="off" class="form-control">
+              <div class="error" *ngIf="isNan1">Location does not accept only numbers</div>
+              <div class="error" id="LocationRequired" *ngIf="BusinessForm.get('Location').hasError('required') && DisplayError">
+                Location is required.
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+              <label for="inputlastname">Flat/Wing<span class="req">*</span></label>
+              <input type="text" formControlName="Flat_Wing" data-parsley-trigger="change"
+                     placeholder="" autocomplete="off" class="form-control">
+              <div class="error" id="FlatWingRequired" *ngIf="BusinessForm.get('Flat_Wing').hasError('required') && DisplayError">
+                Flat Wing is required.
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+              <label for="inputlastname">Locality<span class="req">*</span></label>
+              <input type="text" formControlName="Locality" data-parsley-trigger="change" (keyup)="onKey()"
+                     placeholder="" autocomplete="off" class="form-control">
+              <div class="error" *ngIf="isNan">Locality does not accept only numbers</div>
+              <div class="error" id="LocalityRequired" *ngIf="BusinessForm.get('Locality').hasError('required') && DisplayError">
+                Locality is required.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-10">
+      <div class="card">
+        <div class="card-header">Business KYC</div>
+        <div class="card-body card-border-panle pt-5">
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+              <div class="col-md-4 col-sm-4 col-xs-4 m-b-10 pull-left">
+                <label for="inputlastname">Company Pan Number</label>
+                <input type="text" placeholder="" maxlength="10" oninput="this.value = this.value.toUpperCase()" style="text-transform:uppercase" formControlName="panNumber" class="form-control">
+                <div class="error" *ngIf="BusinessForm.get('panNumber').hasError('pattern')">Please Enter Valid Pan Number.</div>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-4 m-b-10  pull-left">
+                <label for="inputlastname">GSTIN Number</label>
+                <input type="text" maxlength="15" oninput="this.value = this.value.toUpperCase()" style="text-transform:uppercase" formControlName="GSTNumber" class="form-control">
+                <div class="error" *ngIf="BusinessForm.get('GSTNumber').hasError('pattern')">Please Enter Valid GSTN Number</div>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 m-t-10">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <h1 class="title-style">Upload Company Pan (.jpeg,.png,.jpg,.JPEG,.PNG,.JPG)</h1>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 m-b-0 p-0">
+                  <div class="upload-back pl-0 pr-0 pb-0">
+                    <div class="col-md-6 pull-left">
+                      <label>Preview of Company Pan</label>
+                      <div class="preview">
+                        <img [src]="FileURL_Pan" class="imgpreview" (click)="openImage('CompanyPan')" onError="this.src='assets/images/default-img.png'">
+                      </div>
+                    </div>
+                    <div class="col-md-6 pull-left">
+                      <span class="pull-left">
+                        <label for="inputlastname">Upload Your Company Pan</label>
+                      </span>
+                      <span class="pull-left">
+                        <input type="file" accept=".jpeg,.png,.jpg,.JPEG,.PNG,.JPG" (change)="GetUploadFileData_Pan($event);" data-parsley-trigger="change"
+                               placeholder="" autocomplete="off" class="form-control image-padding custom-file-input">
+                      </span>
+                      <!-- <span class="pull-left m-t-5">
+                      <a _ngcontent-c9="" class="remove-link" href="#">Remove logo</a>
+                      </span> -->
+                      <div class="error" *ngIf="typeerror_pan">File Format Not Valid</div>
+                    </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <!-- [disabled]='IsFeePending != true' -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <!-- <button (click)="Skippage();" *ngIf="PartnerId" style="margin-right: 10px;" class="btn btn-primary btn-small mr-10">Skip</button> -->
+      <!-- <button type="button" (click)="Backpage();" style="margin-right: 10px;" class="btn btn-primary btn-small mt-50 mb-10 mr-10">Back</button>  -->
+      <button (click)="OpenSubscriptionfee();" [disabled]='IsFeePending != true'  type="button" class="btn btn-primary btn-small mb-10 mr-5">Pay Subscription Fee</button>
+      <button type="button"  [ngClass] = "{'reject-color': IsBusinessRejected}" [disabled]='IsApprovedBusiness == true || IsFeePending == true' class="btn btn-primary btn-small mb-10 mr-5" style="margin-right:5px !important;margin-left: 5px;" data-toggle="modal" data-target="#BusinessapproveModal">Approve Business</button> 
+      <!-- (click)="ClearbusinessApprovedForm();"  -->
+      <button *ngIf="AddEdit == 'Add'" [disabled]="!BusinessForm.dirty"  type="submit" class="btn btn-primary btn-small mb-10 mr-5">Save</button>
+      <button *ngIf="AddEdit == 'Edit'" [disabled]="!BusinessForm.dirty"  type="submit" class="btn btn-primary btn-small mb-10 mr-5">Next</button>
+    </div>
+    <!-- <label class="error" *ngIf="AlreadyApproved">Business is Approved</label> -->
+  </form>
+
+</div>
+
+<div id="BusinessapproveModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+
+    <div class="modal-content">
+      <form [formGroup]="BusiessApprovedForm" (ngSubmit)="BusinessApprovedFormSubmit()">
+        <div class="modal-header">
+          <h4 class="modal-title">Business Approve/Reject</h4>
+          <button type="button" (click)="Getprevioddata();" class="close" #closemodal data-dismiss="modal">&times;</button>
+
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Approve/Reject<span class="req">*</span></label>
+              <select class="form-control" formControlName="isApproved" (change)="GetApprovedtvalue($event)">
+                <option value="">-Select-</option>
+                <!-- <option value="0">Pending</option> -->
+                <option value="1">Approved</option>
+                <option value="2">Rejected</option>
+              </select>
+              <div class="error" *ngIf="BusiessApprovedForm.get('isApproved').hasError('required') && DisplayError1">
+                Approve/Reject is required.
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="IsReasonActive" style="margin-top:15px;">
+            <div class="col-md-6">
+              <label>Reason</label>
+              <input class="form-control" formControlName="rejectedReason" type="text" name="" placeholder="" id="">
+              <div class="error" *ngIf="BusiessApprovedForm.get('rejectedReason').hasError('required') && DisplayError">
+                Reason is required.
+            </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary ">Save</button>
+          <button type="button" (click)="ClearbusinessApprovedForm();" class="btn btn-primary ">Clear</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

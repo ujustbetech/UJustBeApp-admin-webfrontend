@@ -1,0 +1,20 @@
+.menu.nested {margin-left: 2rem;}
+.level_one{
+  text-transform: uppercase;
+  font-size: 80%;
+}
+.bottom-align{
+  position: absolute;
+  bottom: 83px;
+  z-index: 100;
+  width: 100%;
+  left: 0px;
+  float: left;
+  color: #fff;
+    font-size: 13px;
+}
+.bottom-align a:hover, .active-bottom{
+  background-color: #242849;
+    color: #fff;  
+    font-size: 13px;
+}

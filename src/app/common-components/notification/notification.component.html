@@ -1,0 +1,6 @@
+<div *ngIf="Notifications.length != 0" class="toast-wraper">
+  <div *ngFor="let item of Notifications" [ngClass]="[item.type != null ? 'toast-{item.type}' : 'toast-ERROR' ]"
+      class="wrap toast-{{item.type}}">{{ item.message }}</div>
+</div>
+
+

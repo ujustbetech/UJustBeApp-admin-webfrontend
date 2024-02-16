@@ -1,0 +1,16 @@
+
+    .body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .card-footer-item {
+     padding: 12px 35px;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        text-align: center;
+        display: block !important;
+    }
+
+   

@@ -1,0 +1,53 @@
+<div class="tab-pane" id="2">
+    <div class="row">
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-10 p-0">
+            <div class="card">
+              <div class="card-header">
+                <span class="pull-left title-vt">Partners List</span>
+                <span class="pull-right">
+                  <button type="submit" (click)="PartnerdataexportAsXLSX()" [disabled]="exportToBtnDisable" class="btn btn-primary btn-small btn-export mb-0">Export To Excel</button>
+                </span>
+              </div>
+                <div class="card-body">
+                 
+                    <div class="table-responsive">
+                      <div class="col-md-12 p-0">
+                        <ag-grid-angular style="width: 100%; height: 400px;" [enableColResize]="true"
+                            [enableSorting]="true"  [enableFilter]="true" [floatingFilter]='true' [pagination]="true" [paginationPageSize]="15"
+                            class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs"
+                            [rowClassRules]="rowClassRules" [suppressDragLeaveHidesColumns]="true" [suppressColumnVirtualisation]="true"
+                            (firstDataRendered)="autoSizeAll()" (gridReady)="onGridReady($event)"
+                            (cellClicked)='onCellClicked($event)' [modules]="modules" [frameworkComponents]="frameworkComponents"></ag-grid-angular>
+                          </div>
+                             <!--  [enableFilter]="true" -->
+                             <div class="col-md-12">
+                                <span class="pull-left m-r-15">
+                                    <span class="gd-box box-cr-y"></span>
+                                    <span class="ft-12">KYC Documents Pending</span>
+                                  </span>
+                                  <span class="pull-left m-r-15">
+                                    <span class="gd-box box-cr-p"></span>
+                                    <span class="ft-12">Bank Documents Pending</span>
+                                  </span>
+                                  <span class="pull-left m-r-15">
+                                      <span class="gd-box box-cr-b"></span>
+                                      <span class="ft-12">Approval/Rejection Pending</span>
+                                    </span>
+                                <span class="pull-left m-r-15">
+                                  <span class="gd-box box-cr-r"></span>
+                                  <span class="ft-12">KYC Rejected</span>
+                                </span>  
+                                    <span class="pull-left m-r-15">
+                                        <span class="gd-box box-cr-w" style="border: 1px solid;"></span>
+                                        <span class="ft-12">Approved Partner/Listed Partner/Guest</span>
+                                      </span>
+                              </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

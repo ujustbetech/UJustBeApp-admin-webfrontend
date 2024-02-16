@@ -1,0 +1,33 @@
+.mt-30{
+    margin-top:30px;
+    }
+    
+    .mt-10{
+        margin-top:10px;
+        }
+        
+      
+        .mt-50{
+            margin-top:50px;
+        }
+     
+        
+         .mr-10{
+           margin-right: 10px;
+         }
+    
+         .req{
+             color: red;
+         }
+         
+         select.form-control:not([size]):not([multiple]) {
+           
+            height: 33px !important;
+        }
+.check-canimpact{
+    margin-top: 30px !important;
+    margin-left: 20px !important;
+}
+        
+    
+    

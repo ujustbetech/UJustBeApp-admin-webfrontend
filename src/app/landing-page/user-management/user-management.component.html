@@ -1,0 +1,139 @@
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-0 p-0">
+      
+        <form [formGroup]="userManagementForm" (ngSubmit)="FormSubmit()" action="#" id="basicform"
+            data-parsley-validate="" novalidate="" >
+            <div class="card">
+                <div class="card-header">Add User</div>
+                <div class="card-body">
+                    <div class="row">
+                      <input type="hidden" [(ngModel)]="editUser.userId" formControlName="Id">
+                        <div class="col-md-3 col-sm-3 col-xs-3 pull-left">
+                            <label for="inputUserName">First Name<span class="req">*</span></label>
+                            <input  type="text"  formControlName="firstName" [(ngModel)]="editUser.firstName"  data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
+                          
+                            <div class="error" *ngIf="userManagementForm.get('firstName').hasError('required') && DisplayError">
+                                    First Name is required.
+                                </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 pull-left">
+                            <label for="lastName">Last Name<span class="req">*</span></label>
+                            <input  type="text"  formControlName="lastName" [(ngModel)]="editUser.lastName"  data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
+                            <div class="error" *ngIf="userManagementForm.get('lastName').hasError('required') && DisplayError">
+                                    Last Name is required.
+                                </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 pull-left">
+                            <label for="inputEmail">Email address<span class="req">*</span></label>
+                            <input  type="email" #useremail (keyup)="GetUseremailvalue(useremail.value);" formControlName="email" [(ngModel)]="editUser.emailId"   data-parsley-trigger="change" required="" placeholder="" autocomplete="off" class="form-control">
+                            <div class="error" *ngIf="userManagementForm.get('email').hasError('required') && DisplayError">
+                                  Email Id is required.
+                                </div>
+                                <div class="error"  *ngIf="userManagementForm.controls.email.errors?.EmailInvalid && !UserEmailexist && userManagementForm.controls['email'].dirty">
+                                    Please enter valid Email Id</div> 
+                                <!-- <div class="error" *ngIf="userManagementForm.get('email').hasError('pattern')">Please enter valid Email Id</div> -->
+                                <!-- <div class="error" *ngIf="userManagementForm.controls.email.errors?.EmailInvalid && userManagementForm.controls['email'].dirty">Please enter valid email</div> -->
+                                  <!-- <div class="error" *ngIf="userManagementForm.get('email').hasError('maxlength') && DisplayError">Maxmium 50
+                                    charcter allowed</div> -->
+                                    <div class="error" *ngIf="UserEmailexist">Email Id already exist. </div>
+                                </div>
+                        <!-- </div> -->
+            
+                        <div class="col-md-3 col-sm-3 col-xs-3 pull-left">
+                            <label for="inputUserName">Mobile Number<span class="req">*</span></label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text p-0">
+                                      <!-- <input type="text"  formControlName="countryCode"  class="input-group-text mobile-code"  placeholder="+91" /> -->
+                                      <select class="form-control" formControlName="countryCode">
+                                            <!-- <option selected value="">-Select-</option> -->
+                                            <option *ngFor="let c of CountryList" [disabled]="c.code != '+91'" [value]="c.code">{{c.code}}</option>
+                        
+                                        </select>
+                                    </div>
+                                
+                                </div>
+                                <!-- <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter Mobile Number"> -->
+                                <input  numeric numericType="number" maxlength="10" type="text"  #usermobile (keyup)="GetUserMobilevalue(usermobile.value);" value=""  formControlName="mobileNumber" [(ngModel)]="editUser.mobileNumber"   placeholder="" class="form-control">
+                              </div>
+                            <div class="error" *ngIf="userManagementForm.get('mobileNumber').hasError('required') && DisplayError">
+                                  Mobile Number is required.
+                                </div>
+                                <div class="error" *ngIf="validMobileNum && userManagementForm.controls['mobileNumber'].dirty">Enter valid Mobile number</div>
+                                <div class="error" *ngIf="!validMobileNum && !userManagementForm.controls['mobileNumber'].valid && !UserMobileexist && userManagementForm.controls['mobileNumber'].dirty && !userManagementForm.get('mobileNumber').hasError('required')">Mobile number must be 10 digits.</div>
+                             
+                                    <div class="error" *ngIf="userManagementForm.get('mobileNumber').hasError('pattern')">Only Number
+                                         Allowed</div>
+                                         <div class="error" *ngIf="userManagementForm.get('countryCode').hasError('required') && DisplayError">
+                                          Country Code is required.
+                                        </div>
+                                        <!-- <div class="error" *ngIf="userManagementForm.get('countryCode').hasError('pattern')">enter valid country code</div> -->
+                                        <div class="error" *ngIf="UserMobileexist">Mobile Number already exist. </div>
+
+                        </div>
+                   
+                        <div class="col-md-3 col-sm-3 col-xs-3 pull-left">
+                            <label for="inputPassword">Password<span class="req">*</span></label>
+                            <input type="password" placeholder="" value=""  autocomplete="new-password" #passwordfield [(ngModel)]="editUser.password"  formControlName="password"   required="" class="form-control">
+                            <span (click)="passwordfield.type=passwordfield.type=='password'?'text':'password'" 
+                            class="fa fa-fw field-icon toggle-password"
+                            [ngClass]="(passwordfield.type=='password')?' fa-eye':' fa-eye-slash'"></span>
+                        
+                            <div class="error" *ngIf="userManagementForm.get('password').hasError('required') && DisplayError">
+                                    Password is required.
+                                </div>
+                                <div class="error" *ngIf="userManagementForm.get('password').hasError('maxlength') && userManagementForm.controls['password'].dirty">Maximum 30
+                                   characters allowed.</div>
+
+                                   <div class="error" *ngIf="userManagementForm.get('password').hasError('minlength') && userManagementForm.controls['password'].dirty">Minimum 8
+                                    characters required.</div>
+                        </div> 
+
+                        <div class="col-md-3 col-sm-3 col-xs-3 pull-left">
+                          <label class="col-md-12 p-0 pull-left">Is Active</label>
+                          <span class="col-md-12 p-0 pull-left"> <input type="checkbox" (change)="checkIsuserValue($event)" formControlName="isActive" [checked]="true"> </span>
+                    </div>
+                         </div>
+
+
+            
+                <div class="text-center mt-10" style="float: left">
+                    <button type="submit" class="btn btn-space btn-primary btn-small">
+                        <!-- <i class="fas fa-check"></i> --> Save
+                    </button>
+                    <button (click)="ResetUserForm();"  type="button" class="btn btn-space btn-primary btn-small">
+                        <!-- <i class="fas fa-times"></i> -->Clear
+                    </button>
+                </div>
+            </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-10 p-0">
+        <div class="card">
+          <div class="card-header">
+            <span class="pull-left title-vt">  User List</span>
+            <span class="pull-right">
+              <button type="submit" (click)="exportAsXLSX()" [disabled]="exportToBtnDisable" class="btn btn-primary btn-small btn-export mb-0">Export To Excel</button>
+
+            </span>
+          </div>
+            <div class="card-body">
+                   
+                    <div class="table-responsive">
+                    <ag-grid-angular style="width: 100%; height: 400px;" [enableColResize]="true" [enableSorting]="true"
+                        [enableFilter]="true" [pagination]="true" [paginationPageSize]="15" [floatingFilter]='true'
+                        (cellClicked)='onCellClicked($event)'   class="ag-theme-balham" [rowData]="rowData"
+                        [columnDefs]="columnDefs" [suppressDragLeaveHidesColumns]="true" 
+                        [suppressColumnVirtualisation]="true" (firstDataRendered)="autoSizeAll()"
+                        (gridReady)="onGridReady($event)" [enableCellTextSelection]=true></ag-grid-angular>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

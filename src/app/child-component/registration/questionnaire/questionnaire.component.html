@@ -1,0 +1,238 @@
+<!--<div role="tabpanel" class="tab-pane" id="step-2">-->
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+  <!-- <h5 class="card-header">Questionnarie</h5> -->
+  <!-- <div class="card-body"> -->
+  <form [formGroup]="QuestionnairreForm" (ngSubmit)="FormSubmit()" class="form-row" data-parsley-validate=""
+        novalidate="">
+    <input type="hidden" formControlName="userId">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="card">
+        <div class="card-header">Personal Details</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label>Gender<span class="req">*</span></label>
+              <select class="form-control" formControlName="gender">
+                <option value="">-Select-</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+              <div class="error" *ngIf="QuestionnairreForm.get('gender').hasError('required') && DisplayError">
+                Gender is required.
+              </div>
+            </div>
+            <!-- [(ngModel)]="BDATE" -->
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label>DOB<span class="req">*</span></label>
+              <div class="input-group date">
+                <input class="form-control" readonly [max]=max [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" formControlName="birthDate" style="height:28px;">
+                <span class="input-group-addon" [owlDateTimeTrigger]="dt1">
+                  <span><i class="fa fa-calendar"></i></span>
+                </span>
+                <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+              </div>
+              <div *ngIf="ValidDate" class="error">Date of Birth value must before 18years  </div>
+              <div class="error" *ngIf="QuestionnairreForm.get('birthDate').hasError('required') && DisplayError">
+                DOB is required.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="card">
+        <div class="card-header">Address (Please verify the address as it will be appearing in the Partner agreement)</div>
+        <div class="card-body">
+          <div class="row">
+            <!-- <label>Address</label>   -->
+
+            <div formGroupName="addressInfo" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label>Location<span class="req">*</span></label>
+
+              <input type="text" formControlName="location" (keyup)="onKey4()" placeholder="" class="form-control date">
+              <div class="error" *ngIf="QuestionnairreForm.controls.addressInfo.controls.location.hasError('required') && DisplayError">
+                Location is required.
+              </div>
+              <div class="error" *ngIf="isNan4">Location does not accept only numbers</div>
+            </div>
+
+            <div formGroupName="addressInfo" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label>Flat/Wing<span class="req">*</span></label>
+              <input type="text" formControlName="flatWing" placeholder="" class="form-control date">
+              <div class="error" *ngIf="QuestionnairreForm.controls.addressInfo.controls.flatWing.hasError('required') && DisplayError">
+                Flat/Wing is required.
+              </div>
+            </div>
+
+            <div formGroupName="addressInfo" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label>Locality<span class="req">*</span></label>
+              <input type="text" formControlName="locality" placeholder="" (keyup)="onKey3()" class="form-control date">
+              <div class="error" *ngIf="QuestionnairreForm.controls.addressInfo.controls.locality.hasError('required') && DisplayError">
+                Locality is required.
+              </div>
+              <div class="error" *ngIf="isNan3">Locality does not accept only numbers</div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label>Country<span class="req">*</span></label>
+              <select class="form-control" formControlName="countryId" (change)="GetSelectedCountry($event);">
+                <option selected value="">-Select-</option>
+                <option *ngFor="let c of CountryList" [disabled]="c.countryName != 'India'" [value]="c.countryId">{{c.countryName}}</option>
+              </select>
+              <div class="error" *ngIf="QuestionnairreForm.get('countryId').hasError('required') && DisplayError">
+                Country is required.
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label>State<span class="req">*</span></label>
+              <select class="form-control" formControlName="stateId">
+                <option selected value="">-Select-</option>
+                <option *ngFor="let s of StateList" [value]="s.stateId">{{s.stateName}}</option>
+              </select>
+              <div class="error" *ngIf="QuestionnairreForm.get('stateId').hasError('required') && DisplayError">
+                State is required.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+      <div class="card">
+        <div class="card-header">Preferred Localities (Enter localities where Partner has lot of connects)</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label for="inputPassword">Locality 1<span class="req">*</span></label>
+              <input type="text" formControlName="Locality1" placeholder="" (keyup)="onKey()"
+                     class="form-control">
+              <div class="error" *ngIf="QuestionnairreForm.get('Locality1').hasError('required') && DisplayError">
+                Locality is required.
+              </div>
+              <div class="error" *ngIf="isNan">Locality does not accept only numbers</div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label for="inputPassword">Locality 2</label>
+              <input type="text" formControlName="Locality2" placeholder="" (keyup)="onKey1()"
+                     class="form-control">
+              <div class="error" *ngIf="isNan1">Locality not accept only numbers</div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label for="inputPassword">Locality 3</label>
+              <input type="text" formControlName="Locality3" placeholder="" (keyup)="onKey2()"
+                     class="form-control">
+              <div class="error" *ngIf="isNan2">Locality does not accept only numbers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+      <div class="card mb-0">
+        <div class="card-header">Other Details</div>
+        <div class="card-body">
+          <div class="row">
+            <!--<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label>Are You<span class="req">*</span></label>
+              <select class="form-control" (change)="YouAreSelect($event)" formControlName="organisationType">
+                <option value="">-Select-</option>
+                <option value="Individual">Individual</option>
+                <option value="Company">Company</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="error" *ngIf="QuestionnairreForm.get('organisationType').hasError('required') && DisplayError">
+                This feild is required.
+              </div>
+            </div>-->
+
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label>Partner Profession<span class="req">*</span></label>
+              <select class="form-control" formControlName="userType" id="areyou">
+                <option value="">-Select-</option>
+                <option value="1">Homemaker</option>
+                <option value="2">Employee</option>
+                <option value="3">Student</option>
+                <option value="4">Retired</option>
+                <option value="6">Professional/Business</option>
+                <option value="5">Other</option>
+              </select>
+
+
+              <div class="error" *ngIf="QuestionnairreForm.get('userType').hasError('required') && DisplayError">
+                This field is required.
+              </div>
+
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label for="inputPassword">Select the passive income partner would like to earn<span class="req">*</span></label>
+
+              <select class="form-control" formControlName="passiveIncome">
+                <option selected value="">-Select-</option>
+                <option value="1000-5000">1000-5000</option>
+                <option value="5001-15000">5001-15000</option>
+                <option value="15001-30000">15001-30000</option>
+                <option value="30001 and above">30001 and above</option>
+              </select>
+              <div class="error" *ngIf="QuestionnairreForm.get('passiveIncome').hasError('required') && DisplayError">
+                Passive Income is required.
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-10">
+              <label for="inputPassword">Partner came to know about UJB from-<span class="req">*</span></label>
+              <select class="form-control" (change)="onSelect($event)" formControlName="knowledgeSource">
+                <option value="">-Select-</option>
+                <option value="UJustBe Partner">UJustBe Partner</option>
+                <option value="UJustBe Video">UJustBe Video</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Linkedin">Linkedin</option>
+                <option value="Instagram">Instagram</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="error" *ngIf="QuestionnairreForm.get('knowledgeSource').hasError('required') && DisplayError">
+                About UJB field is required.
+              </div>
+            </div>
+            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 m-b-10" *ngIf="Is_Selected_About_UJB">
+              <label>Select Partner's Mentor<span class="req">*</span></label>
+              <!-- <select class="form-control" formControlName="mentorCode" (change)="GetMentorValue($event);">
+                <option selected value="">-Select-</option>
+                <option *ngFor="let c of MentorList" [value]="c.mentorCode">{{c.firstName}} {{c.lastName}}</option>
+
+              </select> -->
+              in
+
+
+              <input type="text" class="form-control" [(ngModel)]="SelectedMentor" placeholder="" [formControl]="control" [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)='GetMentorValue($event.option.id)' #autocomplete>
+                <mat-option *ngFor="let a of filteredList | async" [value]="a.fullName" [id]="a.mentorCode">
+                  {{a.fullName}}
+                </mat-option>
+              </mat-autocomplete>
+
+              <div class="error" *ngIf="QuestionnairreForm.get('mentorCode').hasError('required') && DisplayError">
+                Mentor Code is required.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <hr />
+      <!-- <button (click)="Skippage();" class="btn btn-primary btn-small mt-50 mb-10 mr-10">Skip</button> -->
+      <!-- <button type="button" (click)="Backpage();" class="btn btn-primary btn-small mt-50 mb-10 mr-10">Back</button> -->
+      <button type="submit" [disabled]="!QuestionnairreForm.dirty" class="btn btn-primary btn-small m-b-0 mr-5">Next</button>
+    </div>
+    <!-- step-2-next -->
+  </form>
+  <!-- </div> -->
+</div>
+<!--</div>-->

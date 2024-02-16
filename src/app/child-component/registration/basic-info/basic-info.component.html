@@ -1,0 +1,244 @@
+<div role="tabpanel" class="tab-pane active" id="step-1">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+    <!-- <div class="card-body"> -->
+    <form [formGroup]="BasicInfoForm" (ngSubmit)="FormSubmit()" action="#" id="basicform" class="form-row"
+          data-parsley-validate="" novalidate="">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+          <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 ">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl-0 pr-0 img-center">
+              <!--<label>Profile Photo (Click on above image to add/change Profile Photo)</label>-->
+              <input #fileInput type="file" accept=".jpeg,.png,.jpg,.JPEG,.PNG,.JPG" style="display: none;" (change)="GetUpalodedProfileImage($event)" />
+              <div class="partner-img img-border img-size">
+                <img [src]="FileURL_Profile" (click)="openImageBox();" class="partner-img" onError="this.src='assets/images/user.png'">
+                <span class="camera-img" (click)="fileInput.click();"><i class="fa fa-camera w-color"></i></span>
+                <!-- openImageBox(); -->
+              </div>
+              <div class="error" *ngIf="Profileerror">Image format not valid</div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+              <span class="title-style" style="margin-left: -4px !important;">(.jpeg,.png,.jpg,.JPEG,.PNG,.JPG)</span><br>
+              <a class="remove-text" *ngIf="Is_Profile_Image" data-toggle="modal" data-target="#ProfileImageremoveModal">Remove Image</a>
+              <!-- <button type="button" *ngIf="Is_Profile_Image" (click)="RemoveProfileImage();" class="remove-text">Remove Image</button> -->
+              <!-- (click)="RemoveProfileImage();" -->
+            </div>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 pl-0 pr-0">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="row">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 mb-10">
+                  <label for="inputUserName">First Name<span class="req">*</span></label>
+                  <input id="inputUserName" type="text" name="name" formControlName="firstName" data-parsley-trigger="change" placeholder="" autocomplete="off" class="form-control">
+                  <input type="hidden" formControlName="Id">
+                  <input type="hidden" formControlName="createdBy">
+                  <div class="error" *ngIf="BasicInfoForm.get('firstName').hasError('required') && DisplayError">
+                    First Name is required.
+                  </div>
+                  <div class="error" *ngIf="BasicInfoForm.get('firstName').hasError('pattern')">Please enter valid First Name</div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 mb-10">
+                  <label for="">Middle Name</label>
+                  <input type="text" formControlName="middleName"
+                         data-parsley-trigger="change" placeholder="" autocomplete="off"
+                         class="form-control">
+                  <div class="error" *ngIf="BasicInfoForm.get('middleName').hasError('pattern')">Please enter valid Middle Name</div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 mb-10">
+                  <label for="">Last Name<span class="req">*</span></label>
+                  <input type="text" formControlName="lastName"
+                         data-parsley-trigger="change" placeholder="" autocomplete="off"
+                         class="form-control">
+                  <div class="error" *ngIf="BasicInfoForm.get('lastName').hasError('required') && DisplayError">
+                    Last Name is required.
+                  </div>
+                  <div class="error" *ngIf="BasicInfoForm.get('lastName').hasError('pattern')">Please enter valid Last Name</div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 mb-10">
+                  <label for="inputEmail">Email Id<span class="req">*</span></label>
+                  <div class="input-group">
+                    <input type="text" #email (keyup)="getemailvalue(email.value);" formControlName="email" placeholder="" data-parsley-trigger="change"
+                           class="form-control">
+                    <div class="error col-md-12 col-sm-12 col-xs-12 pl-0 pr-0" *ngIf="BasicInfoForm.get('email').hasError('required') && !emailExist && DisplayError">
+                      Email Id is required.
+                    </div>
+                  </div>
+
+                  <div class="error" *ngIf="BasicInfoForm.controls.email.errors?.EmailInvalid && !emailExist && BasicInfoForm.controls['email'].dirty">
+                    Please enter valid Email Id
+                  </div>
+                  <!-- <div class="error" *ngIf="BasicInfoForm.controls['email'].pristine && DisplayError">
+                     Email Id is required.
+                  </div> -->
+                  <!-- <div class="error" *ngIf="BasicInfoForm.get('email').hasError('pattern')">Please enter valid Email Id</div> -->
+                  <div class="error" *ngIf="emailExist">Email Id already exist. </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 mb-10 ">
+                  <!-- ht-55 -->
+                  <label for="inputmobileNumber">Mobile Number<span class="req">*</span></label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text p-0">
+
+                        <select class="form-control no-border-select country-drop" formControlName="countryCode" (change)="Changecountrycode()">
+
+                          <option *ngFor="let c of CountryList" [disabled]="c.code != '+91'" [value]="c.code">{{c.code}}</option>
+
+                        </select>
+
+                      </div>
+
+                    </div>
+
+                    <input numeric numericType="number" maxlength="10" type="text" id="inputmobileNumber" #number (keyup)="getmobilevalue(number.value)"
+                           formControlName="mobileNumber" data-parsley-trigger="change" placeholder="" autocomplete="off" class="form-control">
+                  </div>
+                  <!-- <span class="pull-left"><input  type="text"  formControlName="countryCode"  data-parsley-trigger="change" required="" placeholder="+91" autocomplete="off" class="form-control" value="+91"></span>
+                  <span class="pull-left"><input  type="text" id="inputmobileNumber"  formControlName="mobileNumber"  data-parsley-trigger="change" required="" placeholder="Enter Mobile Number" autocomplete="off" class="form-control"></span> -->
+                  <div class="error" *ngIf="BasicInfoForm.get('mobileNumber').hasError('required') && DisplayError">
+                    Mobile Number is required.
+                  </div>
+                  <div class="error" *ngIf="validMobileNum && BasicInfoForm.controls['mobileNumber'].dirty">Enter valid Mobile Number</div>
+                  <div class="error" *ngIf="!validMobileNum && !BasicInfoForm.controls['mobileNumber'].valid && !mobileExist && BasicInfoForm.controls['mobileNumber'].dirty && !BasicInfoForm.get('mobileNumber').hasError('required')">Mobile number must be 10 digits.</div>
+                  <!-- <div class="error" *ngIf="BasicInfoForm.get('mobileNumber').hasError('maxlength')">
+                   Enter Maxmium 10
+                    number
+                  </div>
+                  <div class="error" *ngIf="BasicInfoForm.get('mobileNumber').hasError('minlength')">
+                    Enter minimum 10
+                    number
+                  </div> -->
+                  <!-- <div class="error" *ngIf="BasicInfoForm.get('mobileNumber').hasError('pattern')">
+                   Enter Valid Mobile Number
+                  </div> -->
+                  <div class="error" *ngIf="mobileExist">
+                    Mobile Number exist
+                  </div>
+                  <div class="error" *ngIf="BasicInfoForm.get('countryCode').hasError('required') && DisplayError">
+                    Country Code is required.
+                  </div>
+
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 mb-10 ">
+                  <!-- ht-55 -->
+                  <label for="inputmobileNumber">Alternate Contact Number</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text p-0">
+                        <select class="form-control no-border-select country-drop" formControlName="altcountryCode" (change)="Changecountrycode()">
+                          <option *ngFor="let c of CountryList" [disabled]="c.code != '+91'" [value]="c.code">{{c.code}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <input numeric numericType="number" maxlength="10" type="text" id="inputmobileNumber" #altnumber (keyup)="getAltMobileValue(altnumber.value)"
+                           formControlName="alternateMobileNumber" data-parsley-trigger="change" placeholder="" autocomplete="off" class="form-control">
+                  </div>
+                  <div class="error" *ngIf="validAltMobileNum">Enter valid Alternate Contact Number</div>
+                  <div class="error" *ngIf="!validAltMobileNum && !BasicInfoForm.controls['alternateMobileNumber'].valid && !altmobileExist">Alternate Contact number must be 10 digits.</div>
+
+                  <div class="error" *ngIf="altmobileExist">
+                    Mobile number and alternate contact number should not be same.
+                  </div>
+
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 mb-10  ht-55">
+                  <label for="inputPassword">Password<span class="req">*</span></label>
+                  <input id="inputPassword" id="pass" type="password" #passwordfield autocomplete="new-password" placeholder="" formControlName="password"
+                         class="form-control">
+                  <span (click)="passwordfield.type=passwordfield.type=='password'?'text':'password'"
+                        class="fa fa-fw field-icon toggle-password"
+                        [ngClass]="(passwordfield.type=='password')?' fa-eye':' fa-eye-slash'"></span>
+                  <div class="error" *ngIf="BasicInfoForm.get('password').hasError('required') && DisplayError">
+                    Password is required.
+                  </div>
+                  <div class="error"
+                       *ngIf="BasicInfoForm.get('password').hasError('maxlength') && BasicInfoForm.controls['password'].dirty">
+                    Maximum 30 characters allowed.
+                  </div>
+                  <div class="error"
+                       *ngIf="BasicInfoForm.get('password').hasError('minlength') && BasicInfoForm.controls['password'].dirty">
+                    Minimmum 8 characters requred.
+                  </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 mb-0">
+                  <label for="drprole">Role<span class="req">*</span></label>
+                  <select id="drprole" class="form-control" tabindex="-1" formControlName="userRole" (change)="OnRoleSelect($event);">
+                    <!-- <option value="">-Select-</option> -->
+                    <option *ngIf="InitRole || IsRoleGuest || IsRolePartner" value="Guest">Guest</option>
+                    <option *ngIf="InitRole || IsRolePartner || IsRoleClientPartner" value="Partner">Partner</option>
+                    <option *ngIf="IsRoleClientPartner" value="Listed Partner">Listed Partner</option>
+
+                  </select>
+                  <div class="error" *ngIf="BasicInfoForm.get('userRole').hasError('required') && DisplayError">
+                    Role is required.
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 mb-0">
+                  <label class="col-md-12 p-0">Is Active</label>
+                  <input type="checkbox" (change)="checkIsPartnerValue($event)" formControlName="isActive" [checked]="true">
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 m-b-10" *ngIf="iscomment">
+                  <label for="inputComments">Comments<span class="req">*</span></label>
+                  <textarea data-parsley-trigger="change" formControlName="isActiveComment"
+                            placeholder="" autocomplete="off" class="form-control" rows="2" id="inputComments"></textarea>
+                  <div class="error" *ngIf="DisplayCommentError">
+                    Comment is required.
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+
+
+
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <hr />
+        <!-- <button (click)="Skippage();"  class="btn btn-primary btn-small mt-30 mb-10 mr-10">Back</button> -->
+        <!-- <button (click)="Skippage();" *ngIf="SelectedRole == 'Partner' || IsUserIdExixt" class="btn btn-primary btn-small mt-30 mb-10 mr-10">Skip</button> -->
+        <!-- <button *ngIf="SelectedRole == '' || SelectedRole == 'Guest'|| IsRoleGuest || !IsUserIdExixt" type="submit" class="btn btn-primary btn-small mb-0 mr-5">Save</button>
+        <button *ngIf="IsUserIdExixt" type="submit" class="btn btn-primary btn-small mb-0 mr-5">Next</button> -->
+        <button *ngIf="!IsUserIdExixt" type="submit" [disabled]="!BasicInfoForm.dirty" class="btn btn-primary btn-small mb-0 mr-5">Save</button>
+        <button *ngIf="IsUserIdExixt" type="submit" [disabled]="!BasicInfoForm.dirty" class="btn btn-primary btn-small mb-0 mr-5">Next</button>
+
+      </div>
+      <!-- (click)="navigate();" -->
+      <!-- id="step-1-next" -->
+    </form>
+  </div>
+</div>
+
+
+
+<div id="ProfileImageremoveModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <form #closemodal data-dismiss="modal">
+        <div class="modal-header">
+          <!-- <h4 class="modal-title">Save and Next</h4> -->
+          <button type="button" class="close" #closemodal data-dismiss="modal">&times;</button>
+
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+              <label>Are you sure you want to remove Profile Image?</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal" (click)="RemoveImageConfirmation(true)">Yes</button>
+          <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal" (click)="RemoveImageConfirmation(false)">No</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

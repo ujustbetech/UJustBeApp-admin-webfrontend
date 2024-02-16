@@ -1,0 +1,175 @@
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-0 p-0">
+
+    <form [formGroup]="PromotionForm" (ngSubmit)="FormSubmit()" action="#" id="basicform"
+          data-parsley-validate="" novalidate="">
+      <div class="card">
+        <div *ngIf="IsAddPromotion" class="card-header">Add Promotion</div>
+        <div *ngIf="!IsAddPromotion" class="card-header">Edit Promotion</div>
+        <div class="card-body">
+
+
+          <div class="row">
+            <input type="hidden" formControlName="PromotionId">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+              <label for="inputUserName">Listed Partner<span class="req">*</span></label>
+              <select class="form-control" formControlName="userId" (change)="SelectClientPartner($event);" id="drplp">
+                <option selected value="">-Select-</option>
+                <option *ngFor="let c of partnersList" [value]="c.userId" [disabled]="!c.isACtive">{{c.name}}</option>
+
+              </select>
+              <div class="error" *ngIf="PromotionForm.get('userId').hasError('required') && DisplayError">
+                Listed Partner is required.
+              </div>
+
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+              <label>Start Date<span class="req">*</span></label>
+              <div class="input-group date">
+                <input type="text" class="form-control" readonly name="startdate" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [(ngModel)]="startDate" formControlName="startDate">
+                <span class="input-group-addon" [owlDateTimeTrigger]="dt1">
+                  <span><i class="fa fa-calendar"></i></span>
+                </span>
+
+                <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+
+                <!-- <input [(ngModel)]="startDate" [owlDateTime]="fromdatepicker" placeholder="Date Time" formControlName="startDate" class="form-control" name="startDate">
+                <owl-date-time #fromdatepicker></owl-date-time>
+                <span [owlDateTimeTrigger]="fromdatepicker" class="trigger">icon
+                  <i class="fa fa-calendar"></i>
+                </span> -->
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+              <label>End Date<span class="req">*</span></label>
+              <div class="input-group date">
+                <input type="text" class="form-control" readonly name="enddate" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" [(ngModel)]="endDate" formControlName="endDate">
+                <span class="input-group-addon" [owlDateTimeTrigger]="dt2">
+                  <span><i class="fa fa-calendar"></i></span>
+                </span>
+                <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+            <h1 class="title-style m-b-10">Preview of Image (.jpeg,.png,.jpg,.JPEG,.PNG,.JPG)</h1>
+            <div class="row m-t-10">
+
+              <div class="col-md-3 col-sm-3 col-xs-3 pull-left">
+                <span class="pull-left col-md-12 p-0"><label for="inputEmail">Upload Image<span class="req">*</span></label></span>
+                <span class="pull-left col-md-12 p-b-0 p-l-0 p-r-0">
+
+                  <input class="file-upload-wrapper" autocomplete="off" [attr.data-text]="Filename" type="file" multiple accept=".jpeg,.png,.jpg,.JPEG,.PNG,.JPG" #fileInput class="form-control image-padding custom-file-input" (change)="GetUploadFileData($event)" />
+
+                </span>
+                <!-- <span class="pull-left col-md-12 m-t-5 p-0">
+                  <a href="#" class="remove-link">Remove card</a>
+                </span> -->
+                <div class="error" *ngIf=Imagerequired>Image is required.</div>
+                <div class="error" *ngIf=IsSizeExceed>Image Size should be less than 1 mb</div>
+                <div class="error" *ngIf="Isvalidratio">Image size ratio should be 3:2</div>
+                <div class="error" *ngIf="formaterror">File format not valid</div>
+              </div>
+
+              <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                <!--<div class="preview">
+                  <img [src]="FileURL" #img class="imgpreview" (click)="openImage(img);" onerror="this.src='assets/images/default-img.png'">
+                   <img [src]="PreviewFile" *ngIf="!editPromotion.id" class="imgpreview" (click)="opendefaultImage();" onError="this.src='assets/images/default-img.png'">
+                </div>-->
+                <div class="row mt-10">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-10" *ngFor="let a of media;let i=index">
+                    <div class="box-product">
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                          <div class="img-outerbox">
+                            <img [src]="a.preview" (click)="openImage(i)" style="height:100%;width: 100%;" onError="this.src='assets/images/default-img.png'">
+                          </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-center icon-center mt-10">
+
+                          <span (click)="deleteimage(i);" class="pull-left btn-del" style="min-width: 0px !important;">
+                            <i class="fas fa-trash"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="text-left pull-left m-t-10 col-md-12 col-sm-12 col-xs-12 p-0">
+            <button type="submit" class="btn btn-space btn-primary btn-small">
+              <!-- <i class="fas fa-check"></i> -->Save
+            </button>
+            <button (click)="ClearPromotionform();" type="button" class="btn btn-space btn-primary btn-small">
+              <!-- <i class="fas fa-times"></i> -->Clear
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-0 p-0">
+    <div class="card">
+      <div class="card-header">
+        <span class="pull-left title-vt">Promotion List</span>
+        <span class="pull-right">
+          <button type="submit" (click)="PromotioneDataxportAsXLSX()" [disabled]="exportToBtnDisable" class="btn btn-primary btn-small btn-export mb-0">Export To Excel</button>
+        </span>
+      </div>
+      <div class="card-body">
+
+        <div class="table-responsive">
+          <ag-grid-angular style="width: 100%; height: 400px;" [enableColResize]="true" [enableSorting]="true"
+                           [enableFilter]="true" [pagination]="true" [paginationPageSize]="15" [floatingFilter]='true'
+                           (cellClicked)='onCellClicked($event)' class="ag-theme-balham" [rowData]="rowData"
+                           [columnDefs]="columnDefs" [suppressDragLeaveHidesColumns]="true"
+                           [suppressColumnVirtualisation]="true" (firstDataRendered)="autoSizeAll()"
+                           (gridReady)="onGridReady($event)" (cellClicked)='onCellClicked($event)'
+                           [modules]="modules" [frameworkComponents]="frameworkComponents"></ag-grid-angular>
+
+
+        </div>
+      </div>
+
+      <!-- <label class="control-label">Date :</label>
+      <input [owlDateTime]="fromdatepicker" placeholder="Date Time" class="form-control" name="fromDate">
+      <owl-date-time #fromdatepicker></owl-date-time>
+      <span [owlDateTimeTrigger]="fromdatepicker" class="trigger">icon
+        <i class="fa fa-calendar"></i>
+      </span> -->
+    </div>
+  </div>
+</div>
+<button id="openModal_Delete" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#DeletephotoconfirmationModal" [hidden]="true">Open The Modal Box</button>
+
+<div id="DeletephotoconfirmationModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form #closemodal data-dismiss="modal">
+        <div class="modal-header">
+          <!-- <h4 class="modal-title">Save and Next</h4> -->
+          <button type="button" class="close" #closemodal data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+              <label>Are you sure you want to delete photo?</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal" (click)="Deleteconfirm(true)">Yes</button>
+          <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal" (click)="Deleteconfirm(false)">No</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

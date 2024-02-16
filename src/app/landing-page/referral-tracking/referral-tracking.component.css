@@ -1,0 +1,62 @@
+.btn-list{
+    float: right;
+    margin-top: 25px;
+}
+
+.cellwrap{
+    width:700px !important;
+  }
+
+  .mt-10{
+    Margin-top:10px;
+}
+
+.ref-div{
+    margin-top:10px;
+}
+.input-group.date .input-group-addon {
+  cursor: pointer;
+  color: #666;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  font-size: 18px;
+  height: 28px;
+  border-radius: 0px;
+  display: flex;
+  align-items: center;
+}
+/* .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  } */
+  
+  /* .cdk-overlay-pane { background: #fff !important; } */
+.panel-lbl label {
+  color: #9c9eb3;
+  font-weight: normal;
+  margin-right: 10px;
+  font-style: normal;
+  font-size: 12px;
+  float: left;
+  width: 120px;
+}
+.panel-lbl span {
+  color: #666;
+  font-size: 12px;
+  float: left;
+}
+.cl-name {
+  width:100px;
+}
+select.form-control {
+  background-position: 97% 52%;
+}
+.p-t-15 {
+  padding-top: 15px;
+}

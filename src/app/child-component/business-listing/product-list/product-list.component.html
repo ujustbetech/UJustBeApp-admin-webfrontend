@@ -1,0 +1,488 @@
+
+
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-0 pl-0 pr-0">
+  <form [formGroup]="ProductForm" (ngSubmit)="FormSubmit()">
+    <div class="card">
+      <div class="card-header">Add Product/Service</div>
+      <div class="card-body card-border-panle">
+        <!-- <label class="error" *ngIf="IsServiceActive">You can add maximum 5 Products/Services</label> -->
+        <!-- <label class="error" *ngIf="IsProductActive">You can add only 5 Products</label> -->
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 m-b-10">
+            <label>Would You Like to Add<span class="req">*</span></label>
+            <!-- (change)="GetType($event.target.value)" -->
+            <select class="form-control" id="drpProductService" formControlName="type" (change)="OnProductServiceChange($event);">
+              <option selected value="">-Select-</option>
+              <option value="Product">Product</option>
+              <option value="Service">Service</option>
+            </select>
+
+            <div class="error" *ngIf="ProductForm.get('type').hasError('required') && DisplayError">
+              Type is required.
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 m-b-10">
+            <label for="inputlastname">Name<span class="req">*</span></label>
+            <input type="text" formControlName="name" [(ngModel)]="editdata.name" data-parsley-trigger="change"
+                   placeholder="" autocomplete="off" class="form-control">
+            <div class="error" *ngIf="ProductForm.get('name').hasError('required') && DisplayError">
+              Name is required.
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 m-b-10">
+            <label for="inputlastname">Description</label>
+            <input type="text" formControlName="description" [(ngModel)]="editdata.description"
+                   data-parsley-trigger="change" placeholder="" autocomplete="off"
+                   class="form-control">
+
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 m-b-10">
+            <label for="inputlastname">URL</label>
+            <input type="text" formControlName="url" [(ngModel)]="editdata.url" placeholder="" autocomplete="off" class="form-control">
+            <div class="error" *ngIf="ProductForm.get('url').hasError('pattern')">Please enter valid URL.</div>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 m-b-10">
+            <label for="inputlastname"> Price (in rupees)</label>
+            <input type="text" numeric numericType="decimal" (keyup)="checkDealValue(deal.value,price.value);" #price formControlName="productPrice" [(ngModel)]="editdata.productPrice" placeholder="" autocomplete="off"
+                   class="form-control">
+            <div class="error" *ngIf="ProductForm.get('productPrice').hasError('pattern') && ProductForm.controls['productPrice'].dirty">Enter Valid Price</div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 m-b-10">
+            <label for="inputlastname">Minimum Deal Value (in rupees)</label>
+            <input id="inputlastname" numeric numericType="decimal" (keyup)="checkDealValue(deal.value,price.value);" #deal type="text" formControlName="minimumDealValue"
+                   [(ngModel)]="editdata.minimumDealValue"
+                   placeholder="" autocomplete="off" class="form-control">
+            <div class="error" *ngIf="ProductForm.get('minimumDealValue').hasError('pattern') && ProductForm.controls['minimumDealValue'].dirty">Enter Valid Deal Value</div>
+            <div class="error" *ngIf="isDealvalueGreater">Minimum deal value should be greater than or equal to price</div>
+          </div>
+
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 m-b-10">
+            <label for="isActive" class="col-md-12 pl-0 pr-0">Is Active</label>
+            <input class="input-size" type="checkbox" (change)="checkIsProductValue($event)" formControlName="isActive" [checked]="true">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12 m-t-20">
+            <h1 class="title-style">Add Photo (Max 5 photos- .jpeg,.png,.jpg,.JPEG,.PNG,.JPG)</h1>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 pl-0 pr-0 pull-left">
+              <input type="file" accept=".jpeg,.png,.jpg,.JPEG,.PNG,.JPG" multiple (change)="GetUploadFileData($event);" placeholder="" [disabled]="imageList.length >= 5"
+                     autocomplete="off" class="form-control image-padding custom-file-input">
+              <input type="hidden" formControlName="productId">
+              <input type="hidden" formControlName="businessId">
+              <input type="hidden" formControlName="createdBy">
+              <input type="hidden" formControlName="productId">
+
+            </div>
+
+
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 pl-0 pr-0 pull-left">
+              <!-- <div class="error img-up-er" *ngIf=ProductImagerequired>Product Photo is required.</div> -->
+              <!-- <div class="error img-up-er" style="margin-top: -11px;" *ngIf=Imagelength>Max 5 photos</div> -->
+
+            </div>
+            <!-- <a (click)="selectFile()"  *ngIf="!hideaddmore" style="text-decoration:none;color:blue">+add more</a> -->
+          </div>
+        </div>
+        <div class="row mt-10">
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-10" *ngFor="let a of imageList;let i=index">
+            <div class="box-product">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                  <div class="img-outerbox">
+                    <img [src]="a.prodImgBase64" (click)="openImage(i)" style="height:100%;width: 100%;" onError="this.src='assets/images/default-img.png'">
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center icon-center mt-10">
+                  <div data-tip="Set as default">
+                    <label class="custom-control custom-radio custom-control-inline1 pull-left">
+                      <input type="radio" name="radiogroup" [checked]="a.isDefaultImg" (click)="onRadioChange(a.prodImgName)"
+                             class="custom-control-input">
+                      <span class="custom-control-label"></span>
+
+                    </label>
+                  </div>
+                  <span (click)="deleteimage(i);" class="pull-left btn-del" style="min-width: 0px !important;">
+                    <i class="fas fa-trash"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row" *ngIf="ReferralPercentageAmount">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-t-20">
+
+            <h1 class="title-style">Referral Percentage Amount</h1>
+            <div class="row">
+              <div class="col-md-3 col-sm-3 col-xs-3 pr-0">
+                <div class="switch-field">
+                  <input type="radio" id="single-r" formControlName="typeOf" [(ngModel)]="editdata.typeOf" [value]="1" name="typeOf"
+                         (change)="ConfirmmodalTypeOfChange('typeOf','single');" class="custom-control-input" checked />
+                  <label for="single-r" class="custom-control custom-radio custom-control-inline custom-radio-btn1 custom-radio-tab mr-1">
+                    <span class="custom-control-label radio-hidden">Single</span>
+                  </label>
+                  <input type="radio" id="multiple-r" formControlName="typeOf" name="typeOf" [value]="2" [(ngModel)]="editdata.typeOf"
+                         (change)="ConfirmmodalTypeOfChange('typeOf','multiple');" class="custom-control-input">
+                  <label for="multiple-r" class="custom-control custom-radio custom-control-inline custom-radio-tab custom-radio-btn-last">
+                    <span class="custom-control-label radio-hidden">Multiple</span>
+                  </label>
+                </div>
+              </div>
+              <div class="pl-0 col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 pull-left" *ngIf="IsMultiple">
+                <div class="switch-field">
+                  <input type="radio" id="slab-r" checked formControlName="shareType" [value]="1" name="shareType" [(ngModel)]="editdata.shareType" (change)="ConfirmmodalTypeOfChange('shareType','Slab');"
+                         class="custom-control-input" />
+                  <label for="slab-r" class="mr-1 custom-control custom-radio custom-control-inline custom-radio-btn1 custom-radio-tab">
+                    <span class="custom-control-label radio-hidden">Slab</span>
+                  </label>
+
+                  <input type="radio" id="prd-r" (change)="ConfirmmodalTypeOfChange('shareType','product');" formControlName="shareType" [value]="2" [(ngModel)]="editdata.shareType" name="shareType"
+                         class="custom-control-input" />
+                  <label for="prd-r" class="custom-control custom-radio custom-control-inline custom-radio-tab custom-radio-btn-last">
+                    <span class="custom-control-label radio-hidden">Product</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="error" *ngIf="ProductForm.get('typeOf').hasError('required') && DisplayError">
+              This field  is required.
+            </div>
+
+            <div class="row">
+              <div *ngIf="IsSingle" formArrayName="ProductsOrServices" class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                <div class="row">
+                  <div class="col-md-3 col-sm-3 col-xs-3" *ngFor="let item of ProductsOrServices.controls; let Index=index" [formGroupName]="Index">
+                    <div class="border innerproduct-serv box-product3 mt-10 pull-left ht-auto">
+
+                      <div class="col-md-6 col-sm-6 col-xs-6 pull-left">
+                        <select class="form-control" #percent
+                                formControlName="type" (change)="onchangeofreferaltype(Index);">
+                          <option selected value="1">%</option>
+                          <option value="2">Rs</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-6 pull-left">
+                        <input type="text" maxlength="9" #entervalue formControlName="value" class="form-control" (keyup)="checkPercentageValidation(Index)">
+                        <!-- <div class="error" *ngIf="IsPercentageValidation">Cannot be > 100</div> -->
+                        <div class="error" *ngIf="item.controls.value.errors?.max">Cannot be > 100</div>
+                        <div class="error" *ngIf="item.controls.value.hasError('pattern')">Enter Valid Value</div>
+                        <div class="error" *ngIf="item.controls.value.hasError('required') && DisplayError">
+                          Value is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <div class="col-md-12 pl-0 pr-0 " *ngIf="IsProduct" formArrayName="ProductsOrServices">
+          <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-3 mt-10" *ngFor="let item of ProductsOrServices.controls; let Index=index"
+                 [formGroupName]="Index">
+              <div class="box-product2 box-prod-space">
+                <label>Enter Your Product</label>
+                <div class="mt-0">
+
+                  <input type="text" formControlName="productName" placeholder="Product Name"
+                         class="form-control">
+                  <!--<div class="error" *ngIf="item.controls.productName.hasError('required')">Required</div>-->
+                  <!-- <div class="error" *ngIf="item.controls.productName.hasError('required') && DisplayError"> Product Name is required. </div> -->
+
+                </div>
+                <div class="mt-10 col-md-12 pull-left pl-0 pr-0">
+                  <div class="mb-10 col-md-3 pull-left pl-0 pr-0">
+                    <select class="form-control" formControlName="type" (change)="onchangeofreferaltype(Index);">
+                      <option selected value="1">%</option>
+                      <option value="2">Rs</option>
+                    </select>
+                    <!-- <div class="error" *ngIf="ProductForm['controls']['ProductsOrServices']['controls'][Index]['controls'].type.hasError('max')">
+                      Maxmium 100
+                      % allowed
+                    </div> -->
+                  </div>
+                  <div class="col-md-9 pull-left mb-10 pr-0">
+                    <input type="text" maxlength="9" numeric numericType="decimal" formControlName="value" class="form-control" (keyup)="checkPercentageValidation(Index)">
+                    <!--<div class="error" *ngIf="item.controls.value.hasError('required')">Required</div>-->
+                    <div class="error" *ngIf="item.controls.value.errors?.max">Cannot be > 100</div>
+                    <div class="error" *ngIf="item.controls.value.hasError('pattern')">Enter Valid Value</div>
+                    <div class="error" *ngIf="item.controls.value.hasError('required') && DisplayError">
+                      Value is required.
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row m-t-10">
+                  <div class="col-12 text-right">
+
+                    <!--<span (click)="deleteimage(i);" class="pull-left btn-del" style="min-width: 0px !important;">
+                      <i class="fas fa-trash"></i>
+                    </span>-->
+                    <span (click)="deleteProductsOrServices(Index);" class="btn-del" *ngIf="IsDelete">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a (click)="AddProductsOrServices()" *ngIf="IsAddMore" style="text-decoration:none;color:blue">+add more</a>
+        </div>
+
+
+        <div class="col-md-12 pl-0 pr-0" *ngIf="IsSlab" formArrayName="ProductsOrServices">
+          <div class="row">
+            <div class="mt-10 col-md-3" *ngFor="let item of ProductsOrServices.controls; let Index=index"
+                 [formGroupName]="Index">
+              <div class="box-product3 box-prod-space">
+                <div class="mt-10 mb-10">
+                  <input type="text" maxlength="9" numeric numericType="decimal" #fromv formControlName="from" placeholder="From"
+                         class="form-control" (keyup)="GetFromToValues(fromv.value,tov.value,Index);checkslabsoverlapping(Index)">
+
+
+                  <div class="error" *ngIf="item.controls.from.hasError('pattern')">Enter Valid Value</div>
+                  <!--<div class="error" *ngIf="item.controls.from.hasError('required')">Required</div>-->
+                  <!-- <div class="error" *ngIf="item.controls.from.hasError('required') && DisplayError"> from is required. </div> -->
+                </div>
+                <div class=" mb-10">
+                  <input type="text" maxlength="9" numeric numericType="decimal" #tov formControlName="to" placeholder="To" class="form-control"
+                         (keyup)="GetFromToValues(fromv.value,tov.value,Index);checkslabsoverlapping(Index);">
+                  <div class="error" *ngIf="item.controls.to.hasError('pattern')">Enter Valid Value</div>
+
+                  <!-- <div class="error" *ngIf="isfromvalueGreater">To Value should be greater than From</div> -->
+                  <!--<div class="error" *ngIf="item.controls.to.hasError('required')">Required </div>-->
+                  <!-- <div class="error" *ngIf="item.controls.to.hasError('required') && DisplayError"> To is required. </div> -->
+                </div>
+
+                <div class="mb-10">
+                  <div class="col-12 pl-0 pr-0">
+                    <div class=" mb-10" style="margin-left: 0px !important;padding: 0 0px;">
+                      <div class="col-md-6 pull-left pr-0 pl-0">
+                        <select #percent formControlName="type" (change)="onchangeofreferaltype(Index);checkRupeesValidation(fromv.value,tov.value,valuetext.value,Index);" class="form-control">
+                          <option [selected] value="1">%</option>
+                          <option value="2">Rs</option>
+                        </select>
+                      </div>
+
+                      <div class="col-md-6 pull-left pr-0">
+                        <input type="text" maxlength="9" placeholder="" numeric numericType="decimal" #valuetext formControlName="value" class="form-control"
+                               (keyup)="checkPercentageValidation(Index);checkRupeesValidation(fromv.value,tov.value,valuetext.value,Index)">
+                        <!--<div class="error" *ngIf="item.controls.value.hasError('required')">Required.</div>-->
+                        <div class="error" *ngIf="item.controls.value.errors?.max">Cannot be > 100</div>
+                        <div class="error" *ngIf="item.controls.value.hasError('pattern')">Enter Valid Value</div>
+                        <div class="error" *ngIf="item.controls.value.hasError('required') && DisplayError">
+                          Value is required.
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class=" m-t-10">
+                  <div class="col-md-12 col-sm-12 col-xs-12 text-right pl-0 pr-0 pull-left">
+                    <span (click)="deleteProductsOrServices(Index);" class="btn-del mt-10" *ngIf="IsDelete">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- <a (click)="deleteProductsOrServices(Index)" style="text-decoration:none;color:blue">delete</a> -->
+            </div>
+          </div>
+          <div class="error mt-10" *ngIf="isfromtozero">Value should be greater than Zero</div>
+          <div class="error mt-10" *ngIf="IsSlabOverlapped">Slabs are Overlapped</div>
+          <div class="error mt-10" *ngIf="isfromvalueGreater">To Value should be greater than From</div>
+          <div class="error mt-10" *ngIf="isRupeesvalueGreater">Rs should be less than To value</div>
+          <br> <a (click)="AddProductsOrServices()" *ngIf="IsAddMore" style="text-decoration:none;color:blue">+add more</a>
+        </div>
+
+
+        <hr />
+        <div class="">
+          <button type="button" *ngIf="IsReset" (click)="ResetProductForm();" class="btn btn-primary btn-small mt-50 mb-0 mr-10">Reset</button>
+          <button type="submit" [disabled]="!ProductForm.dirty" id="saveproduct" class="btn btn-primary btn-small mt-50 mb-0 mr-10">Save</button>
+          <!-- <button type="button" (click)="Backpage();" class="btn btn-primary btn-small mt-50 mb-10 mr-10">Back</button>  -->
+          <button type="button" (click)="GoToNext();" class="btn btn-primary btn-small mt-50 mb-0 mr-10">Next</button>
+
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-10 pl-0 pr-0">
+  <div class="card">
+    <div class="card-header">
+      <span class="pull-left title-vt">Product List</span>
+      <span class="pull-right">
+        <button type="submit" (click)="ProductDataxportAsXLSX()" [disabled]="ProductexportToBtnDisable" class="btn btn-primary btn-small btn-export mb-0">Export To Excel</button>
+      </span>
+
+    </div>
+    <div class="card-body card-border-panle">
+
+      <div class="table-responsive">
+        <ag-grid-angular style="width: 100%; height: 300px;" [enableColResize]="true" [enableSorting]="true"
+                         [enableFilter]="true" [pagination]="true" [paginationPageSize]="15" (cellClicked)='onCellClicked($event)'
+                         class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs" [suppressDragLeaveHidesColumns]="true" [modules]="modules"
+                         [suppressColumnVirtualisation]="true" (firstDataRendered)="autoSizeAll()" (gridReady)="onGridReady($event)" [floatingFilter]='true'>
+        </ag-grid-angular>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-10 pl-0 pr-0">
+  <div class="card mb-0">
+    <div class="card-header">
+
+      <span class="pull-left title-vt">  Service List</span>
+      <span class="pull-right">
+        <button type="submit" (click)="ServiceDataxportAsXLSX()" [disabled]="ServiceexportToBtnDisable" class="btn btn-primary btn-small btn-export mb-0">Export To Excel</button>
+      </span>
+
+    </div>
+    <div class="card-body card-border-panle">
+
+      <div class="table-responsive">
+        <ag-grid-angular style="width: 100%; height: 300px;" [enableColResize]="true" [enableSorting]="true"
+                         [enableFilter]="true" [pagination]="true" [paginationPageSize]="15" (cellClicked)='onCellClicked($event)'
+                         class="ag-theme-balham" [rowData]="rowData1" [columnDefs]="columnDefs"
+                         [suppressDragLeaveHidesColumns]="true" [suppressColumnVirtualisation]="true" [modules]="modules"
+                         (firstDataRendered)="autoSizeAll()" (gridReady)="onGridReady($event)" [floatingFilter]='true'>
+        </ag-grid-angular>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button id="openModal_Delete" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#DeletephotoconfirmationModal" [hidden]="true">Open The Modal Box</button>
+
+<div id="DeletephotoconfirmationModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form #closemodal data-dismiss="modal">
+        <div class="modal-header">
+          <!-- <h4 class="modal-title">Save and Next</h4> -->
+          <button type="button" class="close" #closemodal data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+              <label>Are you sure you want to delete photo?</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal" (click)="Deleteconfirm(true)">Yes</button>
+          <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal" (click)="Deleteconfirm(false)">No</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<button id="delete_product_Modal" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#delete_product_Confirmation_Modal" [hidden]="true">Open The Modal Box</button>
+
+<div id="delete_product_Confirmation_Modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form #closemodal data-dismiss="modal">
+        <div class="modal-header">
+          <!-- <h4 class="modal-title">Save and Next</h4> -->
+          <button type="button" class="close" #closemodal data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+              <label>Are you sure you want to delete?</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal" (click)="ConfirmdeleteProduct(true)">Yes</button>
+          <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal" (click)="ConfirmdeleteProduct(false)">No</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<button id="edit_product_Modal" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#edit_product_Modal_confirm" [hidden]="true">Open The Modal Box</button>
+
+<div id="edit_product_Modal_confirm" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form #closemodal data-dismiss="modal">
+        <div class="modal-header">
+          <!-- <h4 class="modal-title">Save and Next</h4> -->
+          <button type="button" class="close" #closemodal data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+              <label>You can only changes referral Percentage / Amount every 3 months</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal">OK</button>
+          <!-- <button type="button" class="btn btn-primary"  #closemodal data-dismiss="modal" (click)="ConfirmdeleteProduct(false)">No</button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<button id="confirmproductModal" style="height: 0px; width:0px;color: #fff;background-color: #efeff6;
+  border-color: #efeff6;" type="button" class="btn btn-info btn-lg" data-toggle="modal"
+        data-target="#confirmproducModal" [hidden]="true"></button>
+<div id="confirmproducModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form #closemodal data-dismiss="modal">
+        <div class="modal-header">
+          <!-- <h4 class="modal-title">Save and Next</h4> -->
+          <button type="button" class="close" #closemodal data-dismiss="modal">&times;</button>
+
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+              <label>This changes lead to lost save data.Do you want to continue?</label>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal"
+                  (click)="ConfirmTypeOfChange(true)">
+            Yes
+          </button>
+          <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal"
+                  (click)="ConfirmTypeOfChange(false)">
+            No
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

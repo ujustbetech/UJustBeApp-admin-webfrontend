@@ -1,0 +1,43 @@
+<!-- <div class=" body login-container"> -->
+<div class="body splash-container">
+    <div class="card ">
+        <div class="card-header text-center bck-white"><a href="../index.html"><img class="logo-img"
+                    src="assets/images/logo.png" alt="logo"></a>
+            <!-- <span class="splash-description">Please enter
+                    your
+                    user information.</span> -->
+        </div>
+        <div class="card-body">
+            <form [formGroup]="LoginForm" (ngSubmit)="FormSubmit()">
+                <div class="form-group">
+                    <input class="form-control form-control-lg" formControlName="Username" id="username" type="text" (keyup)="Getchange();"
+                        placeholder="User Name*" autocomplete="off">
+                    <div class="error" *ngIf="LoginForm.get('Username').hasError('required') && DisplayError">
+                        User Name is required.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control form-control-lg" formControlName="Password" id="password" type="password"  (keyup)="Getchange();" #passwordfield
+                        placeholder="Password*">
+                        <span (click)="passwordfield.type=passwordfield.type=='password'?'text':'password'" 
+                                class="fa fa-fw field-icon toggle-password"
+                                [ngClass]="(passwordfield.type=='password')?' fa-eye':' fa-eye-slash'"></span>
+                    <div class="error" *ngIf="LoginForm.get('Password').hasError('required') && DisplayError">
+                        Password is required.
+                    </div>
+                </div>
+
+                <button #loginbtn type="submit" class="btn btn-primary btn-lg btn-block btn-height">Log In</button>
+            </form>
+        </div>
+        <!-- <div class="card-footer bg-white p-0  ">
+             <div class="card-footer-item card-footer-item-bordered">
+                <a routerLink="/admin-registeration" class="footer-link">Register Here</a></div> 
+            <div class="card-footer-item card-footer-item-bordered">
+                <a routerLink="/forgot-password" class="footer-link">Forgot Password</a>
+            </div>
+        </div> -->
+    </div>
+</div>
+<!-- </div> -->

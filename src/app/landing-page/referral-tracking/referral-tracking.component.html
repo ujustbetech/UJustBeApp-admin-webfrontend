@@ -1,0 +1,100 @@
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-0 p-0">
+  <div class="card">
+   
+    <div class="card-header">
+      <span class="pull-left title-vt">Referrals Tracking</span>
+      <span class="pull-right">
+        <button type="submit" (click)="PartnerdataexportAsXLSX()" [disabled]="exportToBtnDisable" class="btn btn-primary btn-small btn-export mb-0">Export To Excel</button>
+      </span>
+    </div>
+    <div class="card">
+        
+      <div class="card-body">
+          <form [formGroup]="SearchForm" (ngSubmit)="Searchsubmit()">
+          <div role="tabpanel" class="tab-pane active" id="step-1">
+
+             <div class="row">
+            
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3"> 
+                <label>From Date</label>
+                <div class="input-group date">
+                <input type="text"  class="form-control"  [max]="maxDate" formControlName="FromDate" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"  placeholder="" >
+                <span class="input-group-addon" [owlDateTimeTrigger]="dt1">
+                  <span><i class="fa fa-calendar ft-12"></i></span>
+                </span>
+                <owl-date-time  [pickerType]="'calendar'" #dt1></owl-date-time> 
+                </div>
+              
+              </div> 
+           
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3"> 
+                  <label>To Date</label>
+                  <div class="input-group date">
+                  <input type="text"  class="form-control"  [max]="maxDate" formControlName="ToDate" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2"  placeholder="" >
+                  <span class="input-group-addon" [owlDateTimeTrigger]="dt2">
+                    <span><i class="fa fa-calendar ft-12"></i></span>
+                  </span>
+                  <owl-date-time  [pickerType]="'calendar'" #dt2></owl-date-time> 
+                  </div>
+                  
+                </div> 
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                  <label>Status</label>
+                    <select class="form-control" formControlName="Status">
+                      <option selected value="Select">-Select-</option>
+                      <option *ngFor="let d of DealStatusList" [value]="d.Status">{{d.Status}}
+                      </option>
+                    </select>
+                 
+              
+                 
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 p-t-15">
+                 
+                  
+               
+                  <button type="submit" class="btn btn-primary btn-small m-l-10 update-status-btn">
+                    Search
+                  </button>
+                  <button type="button" (click)="ClearSearchform();" class="btn btn-primary btn-small m-l-10 update-status-btn">
+                    Reset
+                  </button>
+               
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="color: red;padding-top: 8px;">
+                * Filter is based on referral  updated date.
+                </div>
+              </div> 
+               
+             
+        
+        
+               
+        
+
+                
+                 
+            
+        
+                </div>         
+        </form>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <!-- <ag-grid-angular style="width: 100%; height: 450px;" [enableColResize]="true" [enableSorting]="true"
+          [enableFilter]="true" [floatingFilter]='true' [pagination]="true" [paginationPageSize]="15" (cellClicked)='onCellClicked($event)'
+          class="ag-theme-balham" [rowData]="referredByMeList" [columnDefs]="columnDefs" [suppressDragLeaveHidesColumns]="true"
+          (firstDataRendered)="autoSizeAll()" (gridReady)="onGridReady($event)" 
+          [modules]="modules" [frameworkComponents]="frameworkComponents" ></ag-grid-angular>        -->
+
+          <ag-grid-angular style="width: 100%; height: 400px;" [enableColResize]="true"   [enableSorting]="true" 
+           [enableFilter]="true" [floatingFilter]='true' [pagination]="true" [paginationPageSize]="15"      (cellClicked)='onCellClicked($event)'
+          class="ag-theme-balham" [rowData]="referredByMeList" [columnDefs]="columnDefs" [suppressColumnVirtualisation]="true"
+          [rowClassRules]="rowClassRules" [suppressDragLeaveHidesColumns]="true" 
+         (gridReady)="onGridReady($event)"
+      [modules]="modules" [frameworkComponents]="frameworkComponents"></ag-grid-angular>
+        </div>
+      </div>
+    </div>
+  </div>

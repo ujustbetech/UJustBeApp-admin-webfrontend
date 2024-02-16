@@ -1,0 +1,43 @@
+.date{
+    margin-top: 0px !important;
+    width: 100% !important;
+    height: 28px !important;
+}
+
+.mt-50{
+    margin-top:50px;
+}
+
+.mt-10{
+    margin-top:10px;
+    }
+
+ .mr-10{
+   margin-right: 10px;
+ }
+
+ select.form-control:not([size]):not([multiple]) {
+       
+    height: 28px !important;
+}
+.req{
+    color: red;
+}
+
+.input-group.date .input-group-addon{
+    cursor:pointer;
+    color: #666;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    font-size: 16px;
+    height: 28px;
+    border-radius: 0px;
+}
+/* .owl-dp{
+    width: 100%;
+    height: 25px;
+    border: 1px solid #2431403b;
+    padding: 5px 5px;
+    color: black !important;
+} */

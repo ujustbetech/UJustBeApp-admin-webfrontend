@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-10">
+        <div class="card">
+            <div class="card-header">Business List</div>
+            <div class="card-body">
+                    <button  type="submit"  (click)="BusinessDataxportAsXLSX()" [disabled]="exportToBtnDisable" class="btn btn-primary btn-small btn-export mb-10">Export To Excel</button>
+                <div class="table-responsive">
+                    <ag-grid-angular style="width: 100%; height: 400px;" [enableColResize]="true" [enableSorting]="true"
+                        [enableFilter]="true" [pagination]="true" [paginationPageSize]="15" class="ag-theme-balham"
+                        [rowData]="rowData" [columnDefs]="columnDefs" [suppressDragLeaveHidesColumns]="true"
+                        [suppressColumnVirtualisation]="true" (firstDataRendered)="autoSizeAll()"
+                        (gridReady)="onGridReady($event)" (cellClicked)='onCellClicked($event)' [floatingFilter]='true'></ag-grid-angular>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

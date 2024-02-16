@@ -1,0 +1,373 @@
+  .tab-style{
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+  }
+
+  
+  .add-right{
+    float: right !important;
+  }
+  
+  hr {
+    margin-top: 31px !important;
+  }
+  
+  .steps {
+    margin: 0px;
+    padding: 0;
+    overflow: hidden;
+  }
+  .steps a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    width: 100%;
+    height: 40px;
+    align-items: center;
+    cursor: pointer;
+  }
+
+    .steps span {
+      width: 100%;
+    }
+  .steps em {
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+    .steps li {
+      float: left;
+      margin-left: 0;
+      width: auto; /* 100 / number of steps */
+      height: 40px; /* total height */
+      list-style-type: none;
+      padding: 5px 8px 5px 8px; /* padding around text, last should include arrow width */
+      /*border-right: 3px solid white;*/ /* width: gap between arrows, color: background of document */
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-right: 1px;
+      cursor: pointer;
+    }
+  /* remove extra padding on the first object since it doesn't have an arrow to the left */
+  .steps li:first-child {
+    padding-left: 5px;
+  }
+  steps li::before:first-child {
+    border-left: 0px solid white;
+    
+  }
+
+  /* white arrow to the left to "erase" background (starting from the 2nd object) */
+  /*.steps li:nth-child(n+2)::before {
+    position: absolute;
+    top:0;
+    left:0;
+    display: block;
+    border-left: 17px solid white;*/ /* width: arrow width, color: background of document */
+    /*border-top: 21px solid transparent;*/ /* width: half height */
+    /*border-bottom:21px solid transparent;*/ /* width: half height */
+    /*width: 0;
+    height: 0;
+    content: " ";
+  }*/
+  /* colored arrow to the right */
+  /*.steps li::after {
+    z-index: 1;*/ /* need to bring this above the next item */
+    /*position: absolute;
+    top: 0;
+    right: -17px;*/ /* arrow width (negated) */
+    /*display: block;
+    border-left: 17px solid #7c8437;*/ /* width: arrow width */
+    /*border-top: 21px solid transparent;*/ /* width: half height */
+    /*border-bottom:21px solid transparent;*/ /* width: half height */
+    /*width:0;
+    height:0;
+    content: " ";
+  }*/
+
+  /* Setup colors (both the background and the arrow) */
+  
+  /* Completed */
+.steps li {
+  background-color: #56a1bd;
+}
+  /*.steps li::after { border-left-color: #4d89c5; }*/
+
+  /* active */
+  .steps li.active { background-color: #003466 !important; }
+  /*.steps li.active::after { border-left-color: #003466!important; }*/
+
+  /* Current */
+  .steps li.current { background-color: #003466; }
+  /*.steps li.current::after { border-left-color: #003466; }*/
+  
+  /* Following */
+  .steps li.current ~ li { background-color: #4d89c5!important; }
+  /*.steps li.current ~ li::after {	border-left-color: #4d89c5!important; }*/
+  
+  /* Hover for completed and current */
+  .steps li:hover {background-color: #003466 !important;}
+  /*.steps li:hover::after {border-left-color: #003466 !important;}*/
+
+
+
+
+
+  .nav-tabs > li.active span{
+    background-color: #003466 !important;
+}
+
+ /*.nav-tabs > li.completed span{
+  background-color: #003466 !important;
+ }*/
+
+
+  
+  /*================================================================================================================================
+                                                horizantal tabbed view                                                
+==================================================================================================================================*/
+
+.board {
+  width: 100%;
+  height: auto;
+  margin: 0px auto;
+  /*background: #fefefe;*/
+}
+
+.board .nav-tabs {
+  position: relative;
+  margin: 0px auto;
+  margin-bottom: 0;
+  box-sizing: border-box;
+}
+
+.liner {
+  height: 2px;
+  position: absolute;
+  width: 80%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 50%;
+  z-index: 1;
+}
+
+
+.btn {
+  font-size: 12px !important;
+  padding: 2px 5px!important;
+  
+}
+
+.steps[_ngcontent-c4] li[_ngcontent-c4] {
+  padding: 0px !important;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  min-width:90px;
+}
+
+.steps li {
+  padding: 0px !important;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  min-width: 90px;
+}
+
+/* .nav-tabs > li+li:before {
+  padding: 0;
+}
+
+.nav-tabs > li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 0 10px 45px;
+  position: relative;
+  display: inline-block;
+  width: calc( 100% - 10px );
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.nav-tabs > li.completed a {
+  background: brown;  
+  background: #90bf5e;
+}
+
+.nav-tabs > li.completed a:after {
+  border-left: 15px solid #90bf5e;
+}
+
+.nav-tabs > li.active a {
+  background: #0078ae;
+}
+
+.nav-tabs > li.active a:after {
+  border-left: 15px solid #666;
+}
+
+.nav-tabs > li:first-child a {
+  padding-left: 15px;
+}
+
+
+.nav-tabs > li a:before {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 16px solid #fff;
+  position: absolute;
+  top: 180%;
+  margin-top: -55px;
+  margin-left: 1px;
+  left: 100%;
+  z-index: 1;
+}
+.nav-tabs > li:last-child a:before {
+  border-left: 0px solid #d4d4d4;
+}
+.nav-tabs > li a:after {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 16px solid hsl(0, 0%, 87%);
+  position: absolute;
+  top: 180%;
+  margin-top: -55px;
+  left: 100%;
+  z-index: 2;
+}
+.nav-tabs > li:last-child a:after {
+  border-top: 0px solid transparent;
+  border-bottom: 0px solid transparent;
+  border-left: 0px solid hsla(0, 0%, 83%, 1);
+}
+.nav-tabs > li {
+  border: 0px solid #ccc;
+}
+.nav-tabs {
+  border-bottom: 0px solid #ddd;
+  background: #dedede;
+}
+.nav-tabs > li:after {
+  content: " ";
+  position: absolute;
+  opacity: 0;
+  margin: 0 auto;
+  bottom: 0px;
+  border-bottom-color: transparent;
+  transition: left 1s;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+  color: #fff;
+  cursor: default;
+  background-color: #666;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+  border-right: 0px;
+}
+.nav-tabs > li.active:after {
+  left: calc(50% - 10px);
+  opacity: 1;
+}
+
+.nav-tabs > li[rel-index="-1"]:after {
+  left: calc(50% + 100% - 10px);
+}
+
+.nav-tabs > li[rel-index="-2"]:after {
+  left: calc(50% + 200% - 10px);
+}
+
+.nav-tabs > li[rel-index="-3"]:after {
+  left: calc(50% + 300% - 10px);
+}
+
+.nav-tabs > li[rel-index="1"]:after {
+  left: calc(50% - 100% - 10px);
+}
+
+.nav-tabs > li[rel-index="2"]:after {
+  left: calc(50% - 200% - 10px);
+}
+
+.nav-tabs > li[rel-index="3"]:after {
+  left: calc(50% - 300% - 10px);
+}
+
+.nav-tabs > li a {
+  width: auto;
+  padding: 0;
+  margin-right: 0px;
+  border-radius: 0px 0px 0 0;
+}
+
+.nav-tabs > li a:hover{
+  border-color: transparent;
+}
+
+.nav-tabs > li span {
+  width: 100%;
+  height: 30px;
+  line-height: 22px;
+  display: inline-block;
+  z-index: 2;
+  left: 0;
+  text-align: center;
+  font-size: 13px;
+  padding: 4px 36.15px;
+  padding-left: 30px;
+}
+
+.nav-tabs > li span {
+  color: #fff;
+  font-weight: 500;
+  border: 0px solid #ddd;
+}
+
+.nav-tabs > li.active span {
+  color: #fff;
+  background: #666;
+} 
+
+.nav-tabs > li > a.disabled {
+  opacity: 1;
+  border: 0px;
+}
+
+.nav-tabs > li > a.disabled span {
+  border-color: #ddd;
+  color: #666;
+  border-width: 0px;
+  padding-left: 30px;
+  line-height: 22px;
+}
+
+div#step-1 {
+  background: #fff;
+}
+
+div[role="tabpanel"]:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.nav-tab-content{
+  border: 1px solid #ddd;
+} */
+
+:focus {
+    outline: -webkit-focus-ring-color auto 0px !important;
+  }
+.btn.focus, .btn:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0rem rgba(0,123,255,.25);
+}

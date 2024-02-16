@@ -1,0 +1,52 @@
+.ag-theme-balham .kyc-rejected{
+    background-color:#ffd9d9 !important;
+}
+.ag-theme-balham .kyc-pending{
+    background-color: #e4e4e4 !important;
+}
+
+.ag-theme-balham .kyc-approved{
+    background-color: #ffffff !important;
+}
+
+.ag-theme-balham .kyc-not-complete{
+    background-color: #d9fdff !important;
+}
+.ag-theme-balham .bank-not-complete{
+    background-color: #f5f3db !important;
+}
+
+
+.gd-box {
+  width: 15px;
+  height: 15px;
+  float: left;
+  margin-top: 1px;
+  margin-right: 5px;
+  border: 1px solid #ccc !important;
+}
+.ft-12 {
+  font-size: 12px;
+}
+.box-cr-r{
+    background:#ffd9d9;
+}
+.box-cr-y{
+    background: #d9fdff;
+}
+
+.box-cr-b{
+    background:#e4e4e4;
+}
+.box-cr-w{
+    background: #ffffff;
+}
+.box-cr-p{
+    background:#f5f3db;
+}
+
+.listbtn{
+    width: 113px !important;
+    padding-left: 24px !important;
+}
+

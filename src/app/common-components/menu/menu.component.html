@@ -1,0 +1,101 @@
+
+<div class="nav-left-sidebar sidebar-dark">
+    <div class="menu-list">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="d-xl-none d-lg-none" href="#">Admin</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav flex-column">
+
+                <!-- <li class="nav-item ">
+      <a class="nav-link" [ngClass]="[MenuName.includes('change-password') ? 'active' : '']"
+          [routerLink]="['/change-password']" data-toggle="collapse" aria-expanded="false"
+          (click)="MenuName = 'Change_Password'">
+          <i class="fa fa-fw fa-user-circle"></i>
+          Change Password</a>
+  </li>  -->
+                <li class="nav-item " (click)="MenuName = 'Partner'">
+                  <a class="nav-link" [ngClass]="[MenuName.includes('Partner') ? 'active' : '']"
+                     [attr.aria-expanded]="[MenuName.includes('Partner') ? true : false]" data-toggle="collapse">
+                    <i class="fa fa-fw fa-user-circle"></i>Partner Management
+                    <span class="badge badge-success">6</span>
+                  </a>
+                  <div class="collapse submenu" [ngClass]="[MenuName.includes('Partner') ? 'show' : '']">
+                    <ul class="nav flex-column">
+
+                      <li class="nav-item" (click)="ResetData();"  >
+                        <a class="nav-link"  [ngClass]="[Activeurl =='/registration' ? 'subactive' : '']" >Registration</a>
+                      </li>
+                      <li class="nav-item" >
+                        <a class="nav-link" [ngClass]="[Activeurl =='/partner-list' ? 'subactive' : '']"  routerLink="/partner-list">Partner Listing</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <!-- [ngClass] = "{'subactive': Activeurl =='/registration'}" -->
+                <!-- [ngClass] = "{'subactive':Activeurl =='/partner-list'}" -->
+
+
+                <li class="nav-item "><!--data-toggle="collapse"-->
+                  <a class="nav-link" [ngClass]="[MenuName.includes('fee-management') ? 'active' : '']"
+                     data-toggle="" aria-expanded="false"
+                     (click)="MenuName = 'fee-management';GetFeemangement();">
+                    <i class="fa fa-fw fa-user-circle"></i>
+                    Fee Management
+                  </a>
+                </li>
+
+                <li class="nav-item "><!--data-toggle="collapse"-->
+                  <a class="nav-link" [ngClass]="[MenuName.includes('Promotion') ? 'active' : '']"
+                     [routerLink]="['/promotion']" data-toggle="" aria-expanded="false"
+                     (click)="MenuName = 'Promotion'">
+                    <i class="fa fa-fw fa-user-circle"></i>
+                    Promotion
+                  </a>
+                </li>
+                <!-- <li class="nav-item "> data-toggle="collapse" -->
+                  
+                <!-- </li> -->
+                <!-- <li class="nav-item "> 
+                  <a class="nav-link" [ngClass]="[MenuName.includes('Referral_list') ? 'active' : '']"
+                     [routerLink]="['/Referral-list']" data-toggle="" aria-expanded="false"
+                     (click)="MenuName = 'Referral_list'">
+                    <i class="fa fa-fw fa-user-circle"></i>
+                    Referral Management
+                  </a>
+                </li> -->
+
+                <li class="nav-item " (click)="MenuName = 'Referral_list'">
+                  <a class="nav-link" [ngClass]="[MenuName.includes('Referral_list') ? 'active' : '']"
+                     [attr.aria-expanded]="[MenuName.includes('Referral_list') ? true : false]" data-toggle="collapse">
+                    <i class="fa fa-fw fa-user-circle"></i>Referral Management
+                    <span class="badge badge-success">6</span>
+                  </a>
+                  <div class="collapse submenu" [ngClass]="[MenuName.includes('Referral_list') ? 'show' : '']">
+                    <ul class="nav flex-column">
+
+                      <li class="nav-item"  (click)="GetReferralListing();"   >
+                        <a class="nav-link"  [ngClass]="[Activeurl =='/Referral-list' ? 'subactive' : '']" >Referral listing</a>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </li> 
+
+
+              </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="pull-left bottom-align" [ngClass]="[MenuName.includes('User_Management') ? 'active-bottom' : '']" >
+      <a class="nav-link" style="color: #fff;font-size: 13px;"
+           [routerLink]="['/user-management']" data-toggle="" aria-expanded="false"
+           (click)="MenuName = 'User_Management';UserManagement();">
+          <i class="fa fa-fw fa-user-circle"></i>
+          User Management
+        </a>
+    </div>
+</div>

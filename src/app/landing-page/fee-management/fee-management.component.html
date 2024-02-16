@@ -1,0 +1,379 @@
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-t-0 p-0">
+    <div class="card">
+      <div class="card-header">Fee Management</div>
+      <div class="card-body card-border-panle">
+        <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+        <div class="m-b-0 col-md-4 pull-left">
+          <label>Partner/Listed Partner<span class="req">*</span></label>
+          <form class="example-form">
+            <input type="text" class="form-control" #autocomplete [readonly]="isReadOnly" placeholder="" [formControl]="control" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='GetSelectedUser($event.option.value)' >
+              <mat-option *ngFor="let userName of filteredList | async" [value]="userName">
+                {{userName}}
+              </mat-option>
+            </mat-autocomplete>
+          </form>
+        </div>
+        <div class="m-b-0 col-md-4 pull-left">
+            <label>Fee Type<span class="req">*</span></label>                
+            <select class="form-control" [disabled]="isReadOnly" (change)="SelectedFeeType($event);" [(ngModel)]="Selectedfeetype">
+                <option selected value="">-Select-</option>
+                <option *ngFor="let fee of FeetypeList" [value]="fee._id">{{fee.feeType}}</option>
+             </select>
+          
+            </div>
+      </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-10 p-0" *ngIf="IsBasicDetails">
+                <div role="tabpanel" class="tab-pane active lbl panel-lbl" id="step-1">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h1 class="title-style" *ngIf="PartnerDetails.role == 'Partner'">Partner Details</h1>
+                    <h1 class="title-style" *ngIf="PartnerDetails.role == 'Listed Partner'">Listed Partner Details</h1>
+                    <!-- <div class="card-body"> -->
+                    <div class="row m-t-10">
+                      <div class="col-xl-3 col-lg-5 col-md-5 col-sm-6 col-12 m-b-10">
+                        <label class="pull-left">Name</label>
+                        <span class="pull-left cl-name">{{PartnerDetails.name}}</span>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 m-b-10">
+                        <label>Email Id</label>
+                        <span>{{PartnerDetails.email}}</span>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6 col-12 m-b-10">
+                        <label>Mobile Number</label>
+                        <span>{{PartnerDetails.mobileNumber}}</span>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 m-b-10">
+                        <label>Role</label>
+                        <span>{{PartnerDetails.role}}</span>
+                        <!-- <label *ngIf="IsClientPartner">Role<span> : {{PartnerDetails.role}}</span></label> -->
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6 col-12 m-b-10">
+                        <label>Registration Date</label>
+                        <span>{{registerationDate}}</span>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 m-b-10" *ngIf="IsClientPartner">
+                        <label>Business Registration Date</label>
+                        <span>{{businessRegisterationDate}}</span>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6 col-12 m-b-10" *ngIf="IsClientPartner">
+                        <label>Renewal Date</label>
+                        <span>{{renewalDate}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+             
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="card">
+          
+          <div class="card-body">
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 mt-10">
+            <label>Fee Type</label>                
+            <select class="form-control"  (change)="GetFeeType($event);">
+                <option selected value="">-Select-</option>
+                <option value="1">Registration Fee</option>
+                <option value="2">Membership Fee</option>   
+                <option value="3">Meeting Fee</option>    
+                           
+            </select>
+            </div>
+            </div>
+          </div> -->
+
+    
+
+      <div class="card" *ngIf="IsPayMentDetailsshown">
+          <div class="card-header">Payment Details</div>
+          <div class="card-body">
+            <div role="tabpanel" class="tab-pane active panel-lbl" id="step-1">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+                <!-- <div class="card-body"> -->
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <label>Total Amount(Rs) </label>
+                    <span>{{FeeDetails.feeAmount}} </span>
+
+
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <label>Paid Amount(Rs)</label>
+                    <span> {{FeeDetails.paidAmount}}  </span>
+
+
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <label>Balance Amount(Rs)</label>
+                    <span> {{FeeDetails.balanceAmount}}  </span>
+                  </div>
+                </div> 
+              </div>
+             
+              
+              
+    
+              </div>
+            </div>
+          </div>
+     
+      <div class="card" *ngIf="IsClientPartner">
+          <div class="card-header">Add Payment</div>
+          <div class="card-body">
+              <form [formGroup]="PaymentDetailsForm" (ngSubmit)="PaymentDetailsSubmit()">
+              <div role="tabpanel" class="tab-pane active" id="step-1">
+
+                 <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">           
+                  <label>Mode Of Payment<span class="req">*</span></label>
+                  <select class="form-control"  (change)="GetPaymentValue($event);" formControlName="paymentType" >
+                      <option selected value="">-Select-</option>
+                      <option value="1">Cheque</option>
+                      <option value="2">Cash</option>   
+                      <option value="3">NEFT</option>    
+                      <option value="4">Google Pay</option> 
+                      <option value="5">PhonePe</option>   
+                      <option value="6">Other</option>                  
+                  </select>
+                  <div class="error" *ngIf="PaymentDetailsForm.get('paymentType').hasError('required') && DisplayError">
+                   Payment Type is required.
+                 </div>
+                 </div>
+                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">           
+                  <label>Amount<span class="req">*</span></label>
+                  <input class="form-control" #amount (change)="GetEnteredAmount(amount.value);" formControlName="amount"  type="text" name="" placeholder="" id="amount">
+                  <div class="error" *ngIf="PaymentDetailsForm.get('amount').hasError('required') && DisplayError">
+                    Amount is required.
+                </div>
+                <div class="error" *ngIf="PaymentDetailsForm.get('amount').hasError('pattern')">Enter Valid Amount</div>
+               <div class="error" *ngIf="IsGreaterAmount">Amount should be less than Balance Amount</div>
+              </div>
+            
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3"> 
+                      <label>Payment Date<span class="req">*</span></label>
+                      <div class="input-group date">
+                      <input type="text"  class="form-control" readonly [max]="maxDate" formControlName="PaymentDate" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"  placeholder="" >
+                      <span class="input-group-addon" [owlDateTimeTrigger]="dt1">
+                        <span><i class="fa fa-calendar ft-12"></i></span>
+                      </span>
+                      <owl-date-time  [pickerType]="'calendar'" #dt1></owl-date-time> 
+                      </div>
+                      <div class="error" *ngIf="PaymentDetailsForm.get('PaymentDate').hasError('required') && DisplayError">
+                          Payment Date is required.
+                        </div>
+                    </div> 
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">           
+                        <label>Description</label>
+                        <input class="form-control"  formControlName="Description"  type="text" name="" placeholder="" id="">
+                        
+                    </div> 
+                </div>    
+            
+            
+                     <div *ngIf="IsCashActive" class="ref-div">
+                      <div class="row">
+                            <div class="col-md-6">           
+                            <label>Name</label>
+                            <input class="form-control"  formControlName="CashPaidName" type="text" name="" placeholder="" id="">
+                            <!-- <div class="error" *ngIf="PaymentDetailsForm.get('CashPaidName').hasError('required') && DisplayError">
+                                Name is required.
+                            </div> -->
+                          </div>
+                           <div class="col-md-6">           
+                            <label>Mobile Number</label>
+            
+                            <div class="input-group mb-2">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text p-0">                              
+                                          <select class="form-control" formControlName="countryId">                               
+                                              <option *ngFor="let c of CountryList" [disabled]="c.code != '+91'" [value]="c.code">{{c.code}}</option>
+                              </select>
+                                      </div>
+                              </div>    
+                              <input  numeric numericType="number" maxlength="10" #feemobile type="text" class="form-control" (keyup)="CheckUserMobilevalue(feemobile.value);" formControlName="mobileNumber"  id="inputmobileNumber" data-parsley-trigger="change" placeholder="">
+                          </div>             
+                            <!-- <div class="error" *ngIf="PaymentDetailsForm.get('mobileNumber').hasError('required') && DisplayError">
+                                Mobile Number is required.
+                            </div> -->
+                            <div class="error" *ngIf="validMobileNum && PaymentDetailsForm.controls['mobileNumber'].dirty">Enter valid Mobile number</div>
+                            <div class="error" *ngIf="!validMobileNum && !PaymentDetailsForm.controls['mobileNumber'].valid &&  PaymentDetailsForm.controls['mobileNumber'].dirty && !PaymentDetailsForm.get('mobileNumber').hasError('required')">Mobile number must be 10 digits.</div>
+                         
+                          <div class="error" *ngIf="PaymentDetailsForm.get('mobileNumber').hasError('pattern')">Only number
+                              allowed</div>
+                          </div>               
+                       </div> 
+                     
+                       <div class="row ref-div">
+                        <div class="col-md-6">           
+                          <label>Email Id</label>
+                          <input class="form-control"  type="text" name="" formControlName="emailId"  placeholder="" id="">
+                          <div class="error" *ngIf="PaymentDetailsForm.get('emailId').hasError('pattern')">Enter Valid Email Id</div>
+                        </div>
+                       </div>
+                      </div>
+                    
+            
+                    <div *ngIf="IsNetBankingActive" class="ref-div"> 
+                        <div class="row">
+                              <div class="col-md-6">           
+                              <label>IFSC Code</label>
+                              <input class="form-control" maxlength="11"  oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase"  type="text" name="" formControlName="IFSCCode"  placeholder="" id="">
+                              <!-- <div class="error" *ngIf="PaymentDetailsForm.get('IFSCCode').hasError('required') && DisplayError">
+                                IFSC Code is required.
+                            </div> -->
+                            
+                            <div class="error" *ngIf="PaymentDetailsForm.get('IFSCCode').hasError('pattern')">Enter Valid IFSC Code.</div>
+                            </div>
+                             <div class="col-md-6">           
+                              <label>Reference No(Transaction No)<span class="req">*</span></label>
+                              <input class="form-control"  type="text"  formControlName="referenceNo"  placeholder="" >
+                              <div class="error" *ngIf="PaymentDetailsForm.get('referenceNo').hasError('required') && DisplayError">
+                                Referrence No is required.
+                            </div>
+                            
+                            </div>                
+                         </div> 
+                      </div>
+            
+            
+                      <div *ngIf="IsChequeActive" class="ref-div">
+                        <div class="row">
+                              <div class="col-md-6">           
+                              <label>Cheque No<span class="req">*</span></label>
+                              <input class="form-control"  type="text" formControlName="chequeNo" placeholder="" id="">
+                              <div class="error" *ngIf="PaymentDetailsForm.get('chequeNo').hasError('required') && DisplayError">
+                                Cheque Number is required.
+                            </div>
+                            <div class="error" *ngIf="PaymentDetailsForm.get('chequeNo').hasError('pattern')">only number allowed</div>
+                            </div>
+                             <div class="col-md-6">           
+                              <label>Account Holder Name<span class="req">*</span></label>
+                              <input class="form-control" type="text" formControlName="accountHolderName" placeholder="" id="">
+                              <div class="error" *ngIf="PaymentDetailsForm.get('accountHolderName').hasError('required') && DisplayError">
+                                Account Holder Name is required.
+                            </div>
+                            </div>                
+                         </div> 
+                         <div class="row ref-div">
+                            <div class="col-md-6">           
+                            <label>Bank Name</label>
+                            <input class="form-control"  type="text" formControlName="bankName" placeholder="" id="">
+                           </div>
+                           <div class="col-md-6">           
+                            <label>Branch Name</label>
+                            <input class="form-control" type="text" formControlName="branchName" placeholder="" id="">
+                           </div>                
+                       </div> 
+                      </div>
+
+                      <div *ngIf="IsUPIActive" class="ref-div"> 
+                          <div class="row">
+                                <div class="col-md-6">           
+                                <label>Transaction Date<span class="req">*</span></label>
+                                <div class="input-group date">
+                                <input  class="form-control" [max]="maxDate"  readonly  [owlDateTime]="dt2" formControlName="TransactionDate" [owlDateTimeTrigger]="dt2"  placeholder="" >
+                                <span class="input-group-addon" [owlDateTimeTrigger]="dt2">
+                                  <span><i class="fa fa-calendar"></i></span>
+                                </span>
+                                <owl-date-time  [pickerType]="'calendar'" #dt2></owl-date-time> 
+                            </div>
+                          
+                             <div class="error" *ngIf="PaymentDetailsForm.get('TransactionDate').hasError('required') && DisplayError">
+                            Transaction Date is required.
+                           </div>
+                              </div>
+                               <div class="col-md-6">           
+                                <label>Transaction ID<span class="req">*</span></label>
+                                <input class="form-control"  type="text" formControlName="referenceNo" placeholder="" >
+                                <div class="error" *ngIf="PaymentDetailsForm.get('referenceNo').hasError('required') && DisplayError">
+                                  Transaction ID is required.
+                                </div>
+                              </div>                
+                           </div> 
+                        </div>
+                        <!-- [disabled]='FeeDetails.balanceAmount === 0'  -->
+
+                      <button type="submit" [disabled]='FeeDetails.balanceAmount === 0'  class="btn btn-primary ref-div" style="float: left;">Save</button>
+                      <button type="button"   class="btn btn-primary ref-div" *ngIf= "Page_From == 'BusinessDetails'" (click)="OpenBusinessDetails();" style="float: left;margin-left:5px">Go Back To Approve Business</button>
+            </div>
+            </form>
+          </div>
+        </div>
+
+
+
+        <div class="card" *ngIf="IsPartner">
+            <div class="card-header">Payment History</div>
+            <div class="card-body">
+              <div role="tabpanel" class="tab-pane active" id="step-1">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+                  <!-- <div class="card-body"> -->
+                    <div class="table-responsive">
+                        <ag-grid-angular style="width: 100%; height: 300px;" [enableColResize]="true" [enableSorting]="true"
+                        [enableFilter]="true" [pagination]="true" [paginationPageSize]="15"
+                        class="ag-theme-balham" [rowData]="PaymentHistoryList" [columnDefs]="PartnerPaymentHistory" [suppressDragLeaveHidesColumns]="true"
+                        [suppressColumnVirtualisation]="true" (firstDataRendered)="autoSizeAll()" (gridReady)="onGridReady($event)" [floatingFilter]='true'
+                        [modules]="modules" [frameworkComponents]="frameworkComponents">
+                      </ag-grid-angular>
+                    </div>
+                  </div>
+                
+      
+      
+                </div>
+              </div>
+            </div>
+
+        <div class="card" *ngIf="IsSubscriptionFee">
+            <div class="card-header">Payment History</div>
+            <div class="card-body">
+              <div role="tabpanel" class="tab-pane active" id="step-1">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+                  <!-- <div class="card-body"> -->
+                    <div class="table-responsive">
+                        <ag-grid-angular style="width: 100%; height: 300px;" [enableColResize]="true" [enableSorting]="true"
+                        [enableFilter]="true" [pagination]="true" [paginationPageSize]="15"
+                        class="ag-theme-balham" [rowData]="SubscriptionPaymentHistoryList" [columnDefs]="SubscriptionHistory" [suppressDragLeaveHidesColumns]="true"
+                        [suppressColumnVirtualisation]="true" #agGrid (firstDataRendered)="autoSizeAll()" (gridReady)="onGridReady($event)" [floatingFilter]='true'
+                        [modules]="modules" [frameworkComponents]="frameworkComponents">
+                      </ag-grid-angular>
+                    </div>
+                  </div>
+                
+      
+      
+                </div>
+              </div>
+            </div>
+
+            
+        <div class="card" *ngIf="IsMeetingFee">
+          <div class="card-header">Payment History</div>
+          <div class="card-body">
+            <div role="tabpanel" class="tab-pane active" id="step-1">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+                <!-- <div class="card-body"> -->
+                  <div class="table-responsive">
+                      <ag-grid-angular style="width: 100%; height: 300px;" [enableColResize]="true" [enableSorting]="true"
+                      [enableFilter]="true" [pagination]="true" [paginationPageSize]="15"
+                      class="ag-theme-balham" [rowData]="SubscriptionPaymentHistoryList" [columnDefs]="MeetingHistory" [suppressDragLeaveHidesColumns]="true"
+                      [suppressColumnVirtualisation]="true" #agGrid (firstDataRendered)="autoSizeAll()" (gridReady)="onGridReady($event)" [floatingFilter]='true'
+                      [modules]="modules" [frameworkComponents]="frameworkComponents">
+                    </ag-grid-angular>
+                  </div>
+                </div>
+              
+    
+    
+              </div>
+            </div>
+          </div>
+    </div>
+    </div>
+
+    

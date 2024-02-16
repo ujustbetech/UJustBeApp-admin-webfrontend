@@ -1,0 +1,308 @@
+<div role="tabpanel" class="tab-pane" id="step-3">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+    <!-- <h5 class="card-header">KYC Details</h5> -->
+    <!-- <div class="card-body"> -->
+    <form [formGroup]="KycForm" (ngSubmit)="BecomeApproved()" class="" data-parsley-validate="" novalidate="">
+      <!-- <div class="col-md-12 mt-10">
+
+      </div> -->
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+        <div class="card">
+          <div class="card-header"><label class="label-header">Pan Card Details</label></div>
+          <div class="card-body card-border-panle">
+            <div class="row">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10 p-0">
+                  <label for="inputUserName">Pan Card Number</label>
+                  <input id="inputUserName" type="text" formControlName="panNumber" name="name" maxlength="10"
+                         data-parsley-trigger="change" placeholder="" autocomplete="off"
+                         class="form-control" oninput="this.value = this.value.toUpperCase()" style="text-transform:uppercase">
+                  <div class="error" *ngIf="KycForm.get('panNumber').hasError('pattern')"  id="scrollTarget">Enter valid pan number</div>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <h1 class="title-style">Upload Pan Card  (.jpeg,.png,.jpg,.JPEG,.PNG,.JPG)</h1>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 p-0">
+                <div class="upload-back pl-0 pr-0 pb-0">
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 pull-left">
+                    <label>Preview of Pan Card</label>
+                    <div class="preview">
+                      <img [src]="FileURL_Pan" class="imgpreview" (click)="open('Pan');" onError="this.src='assets/images/default-img.png'">
+                      <!-- onError="this.src='assets/images/default-img.png'" -->
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 pull-left">
+                    <span class="pull-left"><label for="inputEmail">Pan Card Photo</label></span>
+                    <span class="pull-left">
+                      <input id="inputEmail" type="file"  [attr.data-text]="Filename_pan" (change)="GetUploadFileData_Pan($event)"
+                             accept=".jpeg,.png,.jpg,.JPEG,.PNG,.JPG" form class="form-control image-padding custom-file-input">
+                    </span>
+                    <!-- <span class="pull-left m-t-5">
+                    <a _ngcontent-c9="" class="remove-link" href="#">Remove card</a>
+                    </span> -->
+                    <div class="error" *ngIf="Panerror">File format not valid</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            </div>
+          </div>
+        </div>
+      <!-- </div> -->
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+        <div class="card">
+          <div class="card-header"><label class="label-header">Aadhaar Card Details</label></div>
+          <div class="card-body card-border-panle">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 m-b-10">
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                  <label for="inputPassword">Aadhaar Card Number</label>
+                  <input  id="inputUserName" type="text"  maxlength="14" formControlName="aadharNumber"
+                   #aadharNumber  (change)="onKey($event)" name="space" (keyup)="AdharNumberSpace(aadharNumber.value)" name="name" data-parsley-trigger="change" placeholder="" autocomplete="off" class="form-control">
+                  <!-- <ion-input type="tel" formControlName="aadharNumber"   tabindex="1" placeholder="12 Characters"  [(ngModel)]="inputValue"></ion-input> -->
+                  <div class="error" *ngIf="KycForm.get('aadharNumber').hasError('maxlength') && isNan">
+                    Maxmium 12
+                    number allowed
+                  </div>
+                  <div class="error" *ngIf="KycForm.get('aadharNumber').hasError('pattern') && isNan">
+                    Enter Valid Aadhaar Number
+                  </div>
+                  <div class="error" *ngIf="KycForm.get('aadharNumber').hasError('minlength') &&!(KycForm.get('aadharNumber').hasError('pattern') && isNan)">
+                    Enter minimum 12
+                    number
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12 col-xs-12"><h1 class="title-style">Upload Aadhaar Card (.jpeg,.png,.jpg,.JPEG,.PNG,.JPG) </h1></div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 m-t-10">
+
+                <div class="col-md-6 col-sm-6 col-xs-6 pull-left p-0">
+                  <div class="col-md-6 col-sm-6 col-xs-6 pull-left">
+                    <label>Preview of Aadhaar Card Front Side</label>
+                    <div class="preview">
+                      <img [src]="FileURL_Adhar_front" class="imgpreview" (click)="open('Adhar_front');" onError="this.src='assets/images/default-img.png'" />
+
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6 pull-left">
+                    <span class="pull-left">
+                      <label for="inputRepeatPassword">Aadhaar Card Front Side Photo</label>
+                    </span>
+                    <!-- border-b -->
+                    <span class="pull-left">
+                      <input id="inputEmail" type="file" name="email" [attr.data-text]="Filename_front" (change)="GetUploadFileData_Adhar_front($event)"
+                           accept=".jpeg,.png,.jpg,.JPEG,.PNG,.JPG" data-parsley-trigger="change"  placeholder=""
+                           autocomplete="off" class="form-control image-padding custom-file-input">
+                      </span>
+                    <!-- <span class="pull-left m-t-5">
+                      <a href="#" class="remove-link">Remove card</a>
+                    </span> -->
+                      <div class="error" *ngIf="Adharfronterror">File format not valid</div>
+                  </div>
+
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 pull-left p-0 border-l">
+
+                  <div class="col-md-6 col-sm-6 col-xs-6 pull-left">
+                    <label>Preview of Aadhaar Card Back Side</label>
+                    <div class="preview">
+                      <img [src]="FileURL_Adhar_back" class="imgpreview" (click)="open('Adhar_back');" onError="this.src='assets/images/default-img.png'">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6 pull-left">
+                    <span class="pull-left"> <label for="inputRepeatPassword">Aadhaar Card Back Side Photo</label></span>
+                    <span class="pull-left"> <input id="inputEmail" type="file" name="email" [attr.data-text]="Filename_back" (change)="GetUploadFileData_Adhar_back($event)"
+                          accept=".jpeg,.png,.jpg,.JPEG,.PNG,.JPG" data-parsley-trigger="change" placeholder=""
+                          autocomplete="off" class="form-control image-padding custom-file-input">
+                      </span>
+                      <!-- <span class="pull-left m-t-5">
+                        <a href="#" class="remove-link">Remove card</a>
+                      </span> -->
+                      <div class="error" *ngIf="Adharbackerror">File format not valid</div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+        <div class="card">
+          <div class="card-header"><label class="label-header">Bank Details</label></div>
+          <div class="card-body card-border-panle">
+            <div class="row">
+
+              <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                <div formGroupName="BankDetails" class="col-md-3 col-sm-3 col-xs-3 m-b-10 pull-left">
+                  <label for="inputRepeatPassword">Account Holder Name</label>
+                  <input id="inputEmail"  type="text" name="email" formControlName="accountHolderName"
+                         data-parsley-trigger="change" placeholder="" autocomplete="off"
+                         class="form-control">
+                </div>
+                <div formGroupName="BankDetails" class="col-md-3 col-sm-3 col-xs-3 pull-left m-b-10 ">
+                  <label for="inputRepeatPassword">Bank Name</label>
+                  <input id="inputEmail" type="text" name="email" formControlName="bankName" data-parsley-trigger="change"
+                          placeholder="" autocomplete="off" class="form-control">
+                </div>
+                <div formGroupName="BankDetails" class="col-md-3 col-sm-3 col-xs-3 pull-left">
+                  <label for="inputRepeatPassword">Account Number</label>
+                  <input type="text" numeric numericType="number" maxlength="17" minlength="6"  formControlName="accountNumber" placeholder="" class="form-control">
+                  <div class="error" *ngIf="KycForm.controls['BankDetails'].get('accountNumber').hasError('pattern')">
+                    Only number
+                    allowed.
+                  </div>
+                  <div class="error" *ngIf="KycForm.controls['BankDetails'].get('accountNumber').hasError('maxlength')">
+                    Maxmium 17 number allowed
+                  </div>
+                  <div class="error" *ngIf="KycForm.controls['BankDetails'].get('accountNumber').hasError('minlength')">
+                    Enter  minimum 6 digits
+                  </div>
+                </div>
+                <div formGroupName="BankDetails" class="col-md-3 col-sm-3 col-xs-3 pull-left m-b-10">
+                  <label for="inputRepeatPassword">IFSC Code</label>
+                  <input id="inputEmail" maxlength="11" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase"  type="text" name="email" formControlName="IFSCCode" data-parsley-trigger="change" placeholder="" autocomplete="off" class="form-control">
+                  <div class="error" *ngIf="KycForm.controls['BankDetails'].get('IFSCCode').hasError('pattern')">Enter valid IFSC code</div>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12 col-xs-12"><h1 class="title-style">Upload Cancelled Cheque (.jpeg,.png,.jpg,.JPEG,.PNG,.JPG)</h1></div>
+              <div class="col-md-12 col-sm-12 col-xs-12 m-t-10 p-0">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 m-b-10 p-0">
+                  <div class="upload-back pl-0 pr-0"></div>
+                  <div class="col-md-6 pull-left">
+                    <label>Preview of Cancelled Cheque</label>
+                    <div class="preview">
+                      <img [src]="FileURL_cheque" class="imgpreview" (click)="open('Cheque');" onError="this.src='assets/images/default-img.png'">
+                    </div>
+                  </div>
+                  <div formGroupName="BankDetails" class="col-md-6 pull-left">
+                    <span class="pull-left"><label for="inputRepeatPassword">Cancelled Cheque Photo</label></span>
+                    <span class="pull-left">
+                      <input id="inputEmail" accept=".jpeg,.png,.jpg,.JPEG,.PNG,.JPG" type="file" [attr.data-text]="Filename_cheque" (change)="GetUploadFileData_cheque($event)"  name="email" placeholder="" class="form-control image-padding custom-file-input">
+                    </span>
+                    <!-- <span class="pull-left m-t-5">
+                      <a href="#" class="remove-link">Remove logo</a>
+                    </span> -->
+                      <div class="error" *ngIf="chequeerror">File format not valid</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12  p-0 mt-10">
+        <hr/>
+        <!-- <button (click)="Skippage();" class="btn btn-primary btn-small  mr-10">Skip</button> -->
+        <!-- <button type="button" (click)="Backpage();" class="btn btn-primary btn-small mt-50 mb-10 mr-10">Back</button>  -->
+        <!-- <button *ngIf="AddEdit == 'Add'" type="submit" class="btn btn-primary btn-small  mb-10 mr-5">Submit</button>
+        <button *ngIf="AddEdit == 'Edit'" type="submit" class="btn btn-primary btn-small  mb-10 mr-5">Next</button> -->
+        <button type="button" [ngClass] = "{'reject-color': KYCRejected}" (click)="ApprovedClick();" class="btn btn-primary btn-small  mb-10 mr-5" [disabled]="KYCApproved || !KYCCompleted" data-toggle="modal" data-target="#myModal">Approve KYC</button>
+        <button type="submit" class="btn btn-primary btn-small  mb-10 mr-5" [disabled]="!KycForm.dirty">Next</button>
+        <!-- [disabled]="!KycForm.dirty" -->
+      </div>
+    </form>  
+  </div>
+</div>
+<button id="openModalButton" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#KycModal" [hidden]="true">Open The Modal Box</button>
+<div id="KycModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">  
+
+   
+    <div class="modal-content">          
+          <form [formGroup]="BasicInfoForm"  #closemodal data-dismiss="modal">
+      <div class="modal-header">
+        <!-- <h4 class="modal-title">Save and Next</h4> -->
+        <button type="button" class="close" #closemodal data-dismiss="modal">&times;</button>
+      
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-md-12" style="text-align: center;">           
+              <label>Do you want to auto approve?</label>
+             
+         </div>
+        
+    
+      </div>
+      </div>
+      <div class="modal-footer">
+
+       <button type="button" class="btn btn-primary"  #closemodal data-dismiss="modal" (click)="saveForm(true)">Yes</button>      
+       <button type="button" class="btn btn-primary"  #closemodal data-dismiss="modal" (click)="saveForm(false)">No</button>
+      </div>
+  </form>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">  
+
+   
+    <div class="modal-content">          
+          <form [formGroup]="ApprovedForm" (ngSubmit)="ApprovedFormSubmit()">
+      <div class="modal-header">
+        <h4 class="modal-title">Approve/Reject</h4>
+        <button type="button" class="close" #closekycmodal data-dismiss="modal">&times;</button>
+      
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-md-6">           
+              <label>Approve/Reject<span class="req">*</span></label>
+              <select class="form-control" (change)="getvalue($event);" formControlName="Flag">
+                  <option value="">-Select-</option>
+                  <option value="Approved">Approved</option>
+                  <option value="Reject">Reject</option>                    
+              </select>
+              <div class="error" *ngIf="ApprovedForm.get('Flag').hasError('required') && DisplayError1">
+                  Approve/Reject is required.
+              </div>
+             </div>
+         </div>
+         <div class="row" *ngIf="IsReasonActive" style="margin-top:15px;">
+
+              <div class="col-md-6">           
+              <label>Reason</label>
+              <!-- <input class="form-control"   formControlName="reason" type="text" name="" placeholder="" id=""> -->
+              <select class="form-control" formControlName="reasonId">
+                  <option value="">-Select-</option>
+                  <option value="1">PAN Card Rejected</option>
+                  <option value="2">Aadhaar Card Rejected</option> 
+                  <option value="4">Bank Details Rejected</option>
+                  <option value="3">PAN and Aadhaar Card Rejected</option> 
+                  <option value="5">PAN Card and Bank Details Rejected</option>   
+                  <option value="6">Aadhaar Card and Bank Details Rejected</option>  
+                  <option value="7">PAN Card, Aadhaar Card and Bank Details Rejected</option>             
+              </select>
+              <div class="error" *ngIf="ApprovedForm.get('reasonId').hasError('required') && DisplayError1">
+                  Reason is required.
+              </div>
+          
+          </div>
+         </div>
+    
+      </div>
+      <div class="modal-footer">
+       <button type="submit" class="btn btn-primary " >Save</button>
+        <!-- <button type="button" (click)="clearApprovedForm();" class="btn btn-primary " >Clear</button> -->
+      </div>
+  </form>
+    </div>
+
+  </div>
+</div>
+
+
+
+

@@ -1,0 +1,1353 @@
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-10 p-0">
+  <div class="card">
+    <div class="card-header bck-white">
+      Referral Management  <span class="blinking">
+        {{LeadDetails.inActiveUsers}}
+        <!--One or more partner(s) involved in this referral are inactive now.-->
+      </span>
+      <button type="button" style="float:right;" (click)="Backpage();"
+              class="btn btn-primary btn-small mt-50 mb-10 mr-0">
+        Back
+      </button>
+    </div>
+    <div class="card-body">
+      <!--<div class="row">-->
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-t-0 p-0">
+
+
+
+        <div role="tabpanel" class="tab-pane active" id="step-1">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+            <!-- <div class="card-body"> -->
+            <!--<div class="row">-->
+
+            <div class="card">
+              <div class="card-header">Referral Details</div>
+              <div class="card-body">
+                <div class="row m-b-20">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mt-10">
+                    <h1>Referral Details</h1>
+                    <label>
+                      <span class="label-name">Referral Id</span>:
+                      {{LeadDetails.referralCode}}
+                    </label><br>
+                    <label>
+                      <span class="label-name">Product Name</span>:
+                      {{LeadDetails.productName}}
+                    </label>
+                    <br>
+                    <label><span class="label-name">Date</span>: {{LeadDetails.dateCreated}}</label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mt-10">
+                    <h1>Listed Partner Details</h1>
+                    <label><span class="label-name">Name</span>: {{clientPartnerDetails.name}}</label><br>
+
+                    <label>
+                      <span class="label-name">Mobile Number</span>: {{clientPartnerDetails.countryCode}}
+                      {{clientPartnerDetails.mobileNumber}}
+                    </label><br>
+                    <label><span class="label-name">Email Id</span>: {{clientPartnerDetails.emailId}}</label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mt-10">
+                    <h1>Partner Details</h1>
+                    <label><span class="label-name">Name</span>: {{referredByDetails.referredByName}}</label><br>
+
+                    <label>
+                      <span class="label-name">Mobile Number</span>: {{referredByDetails.referredByCountryCode}} -
+                      {{referredByDetails.referredByMobileNo}}
+                    </label>
+                    <label><span class="label-name">Email Id</span>: {{referredByDetails.referredByEmailId}}</label><br>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mt-10">
+                    <h1>Third Party Details</h1>
+                    <label><span class="label-name">Referred To Name</span>: {{referredToDetails.name}}</label><br>
+
+                    <label>
+                      <span class="label-name">Referred To Mobile Number</span>: {{referredToDetails.countryCode}}
+                      {{referredToDetails.mobileNumber}}
+                    </label><br>
+                    <label><span class="label-name">Referred To Email Id</span>: {{referredToDetails.emailId}}</label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mt-10">
+                    <h1>Listed Partner Mentor Details</h1>
+                    <label><span class="label-name">Name</span>: {{lpMentorDetails.name}}</label><br>
+                    <label>
+                      <span class="label-name">Mobile Number</span>:{{lpMentorDetails.countryCode}}
+                      {{lpMentorDetails.mobile}}
+                    </label>
+                    <br>
+                    <label><span class="label-name">Email Id</span>: {{lpMentorDetails.email}}</label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mt-10">
+                    <h1>Partner Mentor Details</h1>
+                    <label><span class="label-name">Name</span>: {{mentorDetails.name}}</label><br>
+                    <label>
+                      <span class="label-name">Mobile Number</span>:{{mentorDetails.countryCode}}
+                      {{mentorDetails.mobile}}
+                    </label>
+                    <br>
+                    <label><span class="label-name">Email Id</span>: {{mentorDetails.email}}</label>
+                  </div>
+                </div>
+                <hr />
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 m-b-20">
+                  <div class="row">
+                    <!-- <div class="row"> -->
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-10">
+
+                      <label>
+                        <span class="label-name">Description</span>:
+                        {{LeadDetails.referralDescription}}
+                      </label><br>
+                    </div>
+                    <!-- </div>  -->
+
+                  </div>
+                </div>
+
+
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 m-b-20">
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                      <h1>Deal Status</h1>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
+                      <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-10">
+                          <label>
+                            <span class="label-name">Referral Status</span>:
+                            <span class="status">{{LeadDetails.referralStatusValue}}</span>
+                          </label>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-10">
+                          <label>
+                            <span class="label-name">Referral Status Updated On</span>:
+                            {{LeadDetails.referralStatusUpdatedOn}}
+                          </label>
+                        </div>
+
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-10"
+                             *ngIf="LeadDetails.referralStatusValue == 'Rejected'">
+                          <label><span class="label-name">Rejected Reason</span>: {{LeadDetails.rejectedReason}}</label>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-10" *ngIf="LeadDetails.referralStatusValue == 'Accepted'">
+                          <label>
+                            <span class="label-name">Current Deal Status</span>:
+                            <span class="status">{{LeadDetails.dealStatusValue}}</span>
+                            <!-- <h1>{{LeadDetails.dealStatusValue}}</h1>     -->
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12" *ngIf="IsDealstatsShow">
+                      <form [formGroup]="DealStatusForm" (ngSubmit)="ConfirmDealstatussubmit();">
+
+                        <div class="row" *ngIf="IsUpdateStatusActive">
+                          <!-- <div class="col-xl-8 col-lg-8 col-md-8"> -->
+                          <div class="row">
+                            <label><span class="label-name">Update Status</span><span class="req">*</span></label>
+
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-10 p-0">
+                              <span class="pull-left">
+                                <select class="form-control" formControlName="statusId" style="padding-right: 40px;">
+                                  <option selected value="">-Select-</option>
+                                  <option *ngFor="let d of DealStatusList" [value]="d.statusId">
+                                    {{d.statusName}}
+                                  </option>
+                                </select>
+                              </span>
+                              <span class="pull-left">
+                                <button type="submit" class="btn btn-primary btn-small m-l-10 update-status-btn">
+                                  Update Status
+                                </button>
+
+                              </span>
+                            </div>
+                            <div class="error col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0"
+                                 *ngIf="DealStatusForm.get('statusId').hasError('required') && DisplayError1">
+                              Status is required.
+                            </div>
+                            <!-- </div> -->
+                          </div>
+                          <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-10">
+
+                          </div>-->
+                        </div>
+                      </form>
+                      <!-- <div  class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"> -->
+                      <!--<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-12" style="padding: 0px;">
+                        <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mt-12">
+
+                          </div>
+
+                        </div>
+                      </div>-->
+
+
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
+                      <button type="button" data-toggle="modal"
+                              data-target="#dealStatusModal" style="margin-top:17px;"
+                              class="update-status-btn btn btn-primary btn-small mb-10 m-l-10">
+                        Deal Status History
+                      </button>
+
+
+
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 m-b-20" *ngIf="DealValueActive">
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                      <h1>Deal Value</h1>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                      <!-- <label>Reason <span>:</span> {{LeadDetails.Reason}}  </label><br> -->
+                      <div *ngIf="DealValueActive">
+                        <!-- <label>Deal Value<span>:</span> {{LeadDetails.dealValue}}  </label> -->
+                        <!-- <button data-toggle="modal" style="margin-left: 20px" data-target="#DealValueModel" class="btn btn-space btn-primary btn-del">
+                          <i class="fas fa-edit"></i>
+                        </button> -->
+                        <form [formGroup]="DealValueForm" (ngSubmit)="ConfirmDealvaluesubmit();">
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <label>Deal Value<span class="req">*</span></label>
+                                  <input type="text" formControlName="dealValue" #dealvalue
+                                         data-parsley-trigger="change" placeholder="Enter Deal Value" autocomplete="off"
+                                         class="form-control" (change)="GetSharedValue(dealvalue.value)">
+                                  <div class="error"
+                                       *ngIf="DealValueForm.get('dealValue').hasError('required') || IsvalidDealvalue">
+                                    Deal value is required.
+                                  </div>
+                                  <div class="error" *ngIf="DealValueForm.get('dealValue').hasError('pattern')">
+                                    Enter Valid
+                                    Amount
+                                  </div>
+                                  <div class="error" *ngIf="dealvalueinvalid">
+                                    Invalid deal amount
+                                  </div>
+                                </div>
+                                <!-- *ngIf="IsProductDropActive" -->
+                                <!-- [disabled]='IsProductDropActive === false' -->
+                                <div class="col-md-3" *ngIf="IsProductDropActive">
+                                  <label>Product/Slab<span class="req">*</span></label>
+                                  <select class="form-control" #dealproddrop formControlName="ProductId"
+                                          id="dealproddrop" (change)="GetSelectedProduct($event)">
+                                    <option value=undefined>-Select-</option>
+                                    <option *ngFor="let c of ProductServiceDetails" [value]="c.prodservdetailId">
+                                      <span *ngIf="c.productName!=''">{{c.productName}}</span>
+                                      <span *ngIf="c.productName == null ||c.productName==''|| c.productName == 'null'">
+                                        {{c.from}} -
+                                        {{c.to}}
+                                      </span>
+                                    </option>
+
+                                  </select>
+
+                                  <div class="error"
+                                       *ngIf="DealValueForm.get('ProductId').hasError('required') || IsSelectedProduct">
+                                    Product is required.
+                                  </div>
+                                </div>
+                                <div class="col-md-12 deal-note m-t-10" *ngIf="DisplayAmount!=0">
+                                  <label class="m-b-0">
+                                    Agreed <span *ngIf="!IsPercentage"> Amount </span> <span *ngIf="IsPercentage">
+                                      %
+                                    </span>to be shared with UJB
+
+                                    <!-- {{DisplayAmount}} <span> Rs </span> -->
+                                    <span *ngIf="!IsPercentage">{{DisplayAmount}} Rs </span>
+                                    <span *ngIf="IsPercentage">{{productValue}} %</span>
+                                    Total Amount shared with UJB <span> {{DisplayAmount}} <span> Rs </span></span>
+                                  </label>
+
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-12 m-t-10">
+                              <button type="submit" class="btn btn-primary" [disabled]="checkCurrentstatus" id="btndealvalue">Save</button>
+                            </div>
+                          </div>
+                          <!-- </div>
+                          <div class="modal-footer"> -->
+                          <!-- <button type="button" class="btn btn-primary" (click)="ResetdealvalueForm();">Clear</button> -->
+                          <!-- </div> -->
+                        </form>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 m-b-20" *ngIf="DealValueActive">
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                      <h1>Projected Deal Break Up Details</h1>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                      <label class="m-b-0">
+                        <span class="label-name">Agreed Deal Share</span>:
+                        {{DisplayAmount}}
+                      </label><br>
+                      <hr />
+                    </div>
+
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 mt-10 p-0">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <label class="m-b-0">
+                          <span class="label-name">Share Received by UJB</span>:
+                          {{LeadDetails.projectiveshareReceivedByPartner.recievedByUJB}}
+                        </label><br>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 mt-10 p-0">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <label class="m-b-0">
+                          <span class="label-name">
+                            Share Received by Partner
+                          </span>: {{LeadDetails.projectiveshareReceivedByPartner.recievedByReferral}}
+                        </label><br>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 mt-10 p-0">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <label class="m-b-0">
+                          <span class="label-name">Share Received by Partner Mentor</span>: {{LeadDetails.projectiveshareReceivedByPartner.recievedByMentor}}
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 mt-10 p-0">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <label class="m-b-0">
+                          <span class="label-name">Share Received by LP Mentor</span>: {{LeadDetails.projectiveshareReceivedByPartner.recievedByLPMentor}}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 m-b-20" *ngIf="DealValueActive">
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                      <h1>Actual Deal Break Up Details</h1>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
+                          <label class="m-b-0">
+                            <span class="label-name">Agreed Deal Share</span>:
+                            {{LeadDetails.totalUJBAmtReceived}}
+                          </label><br>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 ">
+                          <label class="m-b-0">
+                            <span class="label-name">
+                              Amount Received by
+                              LP
+                            </span>:{{LeadDetails.totalCPAmtReceived}}
+                          </label><br>
+
+                        </div>
+                      </div>
+                      <hr />
+                    </div>
+                    <div class="col-md-12 col-lg-12 col-xs-12">
+
+                      <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 mt-10 p-0">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label class="m-b-0">
+                              <span class="label-name">Standard Share Received by UJB</span>:
+                              {{LeadDetails.totalUJBAmtReceived * 0.2}}
+                            </label><br>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 mt-10 p-0">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label class="m-b-0">
+                              <span class="label-name">Standard Share Received by Partner</span>:
+                              {{LeadDetails.totalPartnerAmtPaid}}
+                            </label><br>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 mt-10 p-0">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label class="m-b-0">
+                              <span class="label-name">Standard Share Received by Mentor</span>:
+                              {{LeadDetails.totalMentorAmtPaid}}
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 mt-10 p-0">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label class="m-b-0">
+                              <span class="label-name">Standard Share Received by LP Mentor</span>:
+                              {{LeadDetails.totalLPMentorAmtPaid}}
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <hr />
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-xs-12">
+
+                      <div class="row">
+                        <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 mt-10 p-0">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label class="m-b-0"><span class="label-name">Share Received by UJB</span>:
+                              {{LeadDetails.pramotionalshareRecievedByPartners}}</label><br>
+                          </div>
+                        </div> -->
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 mt-10 p-0">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label class="m-b-0">
+
+                              <div class="label-name promotional-label">Promotional Incentives Received by Partner Mentor</div>
+                              <div clas="promotional-num-label">:  {{LeadDetails.pramotionalshareRecievedByPartners.recievedByMentor}}</div>
+                            </label><br>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 mt-10 p-0">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label class="m-b-0">
+                              <div class="label-name promotional-label"> Promotional Incentives Received by LP Mentor</div>
+                              <div clas="promotional-num-label">:  {{LeadDetails.pramotionalshareRecievedByPartners.recievedByLPMentor}}</div>
+
+                            </label>
+                          </div>
+                        </div>
+
+                      </div>
+                      <hr />
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-xs-12">
+
+                      <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 mt-10 p-0">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label class="m-b-0">
+                              <span class="label-name">Share Received by UJB</span>:
+                              {{LeadDetails.totalshareRecievedByPartners.recievedByUJB}}
+                            </label><br>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 mt-10 p-0">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label class="m-b-0">
+                              <span class="label-name">Share Received by Partner</span>:
+                              {{LeadDetails.totalshareRecievedByPartners.recievedByReferral}}
+                            </label><br>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 mt-10 p-0">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label class="m-b-0">
+                              <span class="label-name"> Share Received by Mentor</span>:
+                              {{LeadDetails.totalshareRecievedByPartners.recievedByMentor}}
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 mt-10 p-0">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label class="m-b-0">
+                              <span class="label-name">Share Received by LP Mentor</span>:
+                              {{LeadDetails.totalshareRecievedByPartners.recievedByLPMentor}}
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 m-b-20" *ngIf="DealValueActive">
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                      <h1>Pramotional incentive Break Up Details</h1>
+                    </div>
+
+
+
+                  </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 m-b-20" *ngIf="DealValueActive">
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                      <h1>Total Deal Break Up Details</h1>
+                    </div>
+
+
+
+                  </div>
+                </div> -->
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="card" *ngIf="currentStatusActive">
+            <div class="card-header">
+              Add Payment Details
+              <!-- <button [disabled]='IsPaymentBlock == false' data-toggle="modal" data-target="#PaymentModal"
+                  style="float: right; padding: 6px 9px;" class="btn btn-primary btn-small mt-30 mb-10 mr-10">
+                  Update Paymnent Details
+                </button> -->
+            </div>
+            <div class="card-body">
+              <form [formGroup]="PaymentDetailsForm" (ngSubmit)="PaymentDetailsSubmit()">
+                <!-- <div class="modal-header">
+                    <h4 class="modal-title">Payment Details</h4>
+                    <button type="button" class="close" #paymentclosemodal data-dismiss="modal"
+                      (click)="ResetPaymentDetails();">&times;</button>
+
+                  </div> -->
+                <div class="modal-body p-0">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label>Payment From<span class="req">*</span></label>
+                      <select class="form-control" formControlName="paymentFrom" (change)="GetPaymentFrom($event);"
+                              #clientp>
+                        <option selected value="">-Select-</option>
+                        <option value="UJB" *ngIf="AllowUJb">UJB</option>
+                        <option value="{{clientPartnerDetails.userId}}">{{clientPartnerDetails.name}}</option>
+                      </select>
+                      <div class="error"
+                           *ngIf="PaymentDetailsForm.get('paymentFrom').hasError('required') && DisplayError">
+                        Payment From is required.
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <label>Payment To<span class="req">*</span></label>
+                      <select class="form-control" [(ngModel)]="selected" formControlName="paymentTo"
+                              (change)="GetPaymentTo($event);">
+                        <option selected value="">-Select-</option>
+
+                        <option *ngFor="let partner of sharedwith" value={{partner.id}}>
+                          {{partner.name}}
+                        </option>
+                      </select>
+                      <div class="error"
+                           *ngIf="PaymentDetailsForm.get('paymentTo').hasError('required') && DisplayError">
+                        Payment To is required.
+                      </div>
+                    </div>
+                    <div class="col-md-6 m-t-0" *ngIf="adjustregisrattionfee">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>Payment Date<span class="req">*</span></label>
+                          <div class="input-group date">
+                            <input class="form-control" style="height:28px !important" readonly [max]="maxDate"
+                                   [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder=""
+                                   formControlName="paymentDate">
+                            <span class="input-group-addon" [owlDateTimeTrigger]="dt1">
+                              <span><i class="fa fa-calendar"></i></span>
+                            </span>
+                            <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                          </div>
+                          <div class="error"
+                               *ngIf="PaymentDetailsForm.get('paymentDate').hasError('required') && DisplayError">
+                            Payment Date is required.
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Description</label>
+                          <input class="form-control" formControlName="Description" type="text" name="" placeholder=""
+                                 id="">
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3" *ngIf="balanceRegisterationAmt > 0 && IsPaymentChange">
+                      <label>
+                        <span class="req">
+                          Registration fee Amount to be adjusted for this partner-
+                          {{balanceRegisterationAmtdetails}}
+                        </span>
+                      </label>
+                    </div>
+
+                  </div>
+
+                  <div class="row m-t-10">
+
+                    <div class="col-md-12 m-t-0">
+                      <div class="row m-t-0">
+                        <div class="col-md-3" *ngIf="IsClinetPartner && adjustregisrattionfee">
+                          <label>Amount recieved by Listed partner<span class="req">*</span></label>
+                          <input class="form-control" formControlName="CPReceivedAmt" type="text" name=""
+                                 placeholder="Enter Amount" id="" #CPReceivedAmt
+                                 (change)="GetSharedValueUJB(CPReceivedAmt.value)">
+                          <div class="error"
+                               *ngIf="PaymentDetailsForm.get('CPReceivedAmt').hasError('required') && DisplayError">
+                            Recieved Amount is required.
+                          </div>
+                          <div class="error" *ngIf="PaymentDetailsForm.get('CPReceivedAmt').hasError('pattern')">
+                            Enter Valid
+                            Amount
+                          </div>
+                        </div>
+
+                        <div class="col-md-3" *ngIf="promotion">
+                          <label>Promotional Incentives percentage</label>
+                          <input class="form-control" formControlName="percSharedRecvdFrmPramotion" type="text" name=""
+                                 placeholder="Enter Amount" id="" #percSharedRecvdFrmPramotion
+                                 (change)="GetPramotionalAmount(percSharedRecvdFrmPramotion.value)">
+
+                          <div class="error" *ngIf="PaymentDetailsForm.get('percSharedRecvdFrmPramotion').hasError('pattern')">
+                            Enter Valid
+                            percentage
+                          </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="promotion">
+                          <label> Promotional Incentives Amount</label>
+                          <input class="form-control" formControlName="amtRecvdFrmPramotion" type="text" name="" placeholder="" id=""
+                                 disabled>
+
+                        </div>
+                        <div class="col-md-3" *ngIf="adjustregisrattionfee">
+                          <label>Amount<span class="req">* </span></label><span *ngIf="IsPercentage && IsClinetPartner">({{productValue}}%)</span>
+                          <span *ngIf="!IsClinetPartner">({{Shared_percentage}} %)</span>
+
+                          <input class="form-control" formControlName="amount" type="text" name="" placeholder="" id="amount"
+                                 [readonly]="!IsClinetPartner">
+                          <div class="error"
+                               *ngIf="PaymentDetailsForm.get('amount').hasError('required') && DisplayError">
+                            Amount is required.
+                          </div>
+                          <div class="error" *ngIf="PaymentDetailsForm.get('amount').hasError('pattern')">
+                            Enter Valid Amount
+                          </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="adjustregisrattionfee">
+                          <label>Mode Of Payment<span class="req">*</span></label>
+                          <select class="form-control" formControlName="paymentType"
+                                  (change)="GetPaymentValue($event);">
+                            <option selected value="">-Select-</option>
+                            <option value="1">Cheque</option>
+                            <option value="2">Cash</option>
+                            <option value="3">NEFT</option>
+                            <option value="4">Google Pay</option>
+                            <option value="5">PhonePe</option>
+                            <option value="6">Other</option>
+                          </select>
+                          <div class="error"
+                               *ngIf="PaymentDetailsForm.get('paymentType').hasError('required') && DisplayError">
+                            Payment Type is required.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <!-- <div class="row m-t-10">
+
+                    <div class="col-md-6 m-t-0">
+                      <div class="row m-t-0" *ngIf="adjustregisrattionfee">
+                        <div class="col-md-6">
+                          <label>Mode Of Payment<span class="req">*</span></label>
+                          <select class="form-control" formControlName="paymentType"
+                            (change)="GetPaymentValue($event);">
+                            <option selected value="">-Select-</option>
+                            <option value="1">Cheque</option>
+                            <option value="2">Cash</option>
+                            <option value="3">NEFT</option>
+                            <option value="4">Google Pay</option>
+                            <option value="5">Phone Pay</option>
+                            <option value="6">Other</option>
+                          </select>
+                          <div class="error"
+                            *ngIf="PaymentDetailsForm.get('paymentType').hasError('required') && DisplayError">
+                            Payment Type is required.
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div> -->
+                  <div *ngIf="IsCashActive" class="m-t-10">
+                    <div class="row m-t-0">
+                      <div class="col-md-3">
+                        <label>Name<span class="req"></span></label>
+                        <input class="form-control" formControlName="cashPaidName" type="text" name="" placeholder=""
+                               id="">
+                        <!-- <div class="error"
+                          *ngIf="PaymentDetailsForm.get('cashPaidName').hasError('required') && DisplayError">
+                          Name is required.
+                        </div> -->
+                      </div>
+                      <div class="col-md-3">
+                        <label>Mobile Number<span class="req"></span></label>
+
+                        <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text p-0">
+                              <select class="form-control countr-sl" formControlName="countryCode">
+                                <option *ngFor="let c of CountryList" [disabled]="c.code != '+91'" [value]="c.code">
+                                  {{c.code}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <input numeric numericType="number" type="text" #referalmobile class="form-control"
+                                 (keyup)="CheckUserMobilevalue(referalmobile.value);" id="inputmobileNumber" maxlength="10"
+                                 formControlName="mobileNumber" data-parsley-trigger="change" placeholder="">
+                        </div>
+                        <!-- <div class="error"
+                          *ngIf="PaymentDetailsForm.get('mobileNumber').hasError('required') && DisplayError">
+                          Mobile Number is required.
+                        </div> -->
+                        <div class="error" *ngIf="validMobileNum && PaymentDetailsForm.controls['mobileNumber'].dirty">
+                          Enter valid Mobile number
+                        </div>
+                        <div class="error"
+                             *ngIf="!validMobileNum && !PaymentDetailsForm.controls['mobileNumber'].valid &&  PaymentDetailsForm.controls['mobileNumber'].dirty && !PaymentDetailsForm.get('mobileNumber').hasError('required')">
+                          Mobile number must be 10 digits.
+                        </div>
+                        <!-- <div class="error" *ngIf="PaymentDetailsForm.get('mobileNumber').hasError('maxlength')">
+                            Maxmium 10
+                            number allowed
+                          </div>
+                          <div class="error" *ngIf="PaymentDetailsForm.get('mobileNumber').hasError('minlength')">
+                            Enter minimum 10
+                            number
+                          </div> -->
+                        <div class="error" *ngIf="PaymentDetailsForm.get('mobileNumber').hasError('pattern')">
+                          Only number
+                          allowed
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <label>Email Id</label>
+                        <input class="form-control" formControlName="emailId" type="text" name="" placeholder="" id="">
+                        <div class="error" *ngIf="PaymentDetailsForm.get('emailId').hasError('pattern')">
+                          Enter Valid Email
+                          Id
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="IsNetBankingActive" class="m-t-10">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <label>IFSC Code</label>
+                        <input class="form-control" maxlength="11" oninput="this.value = this.value.toUpperCase()"
+                               style="text-transform: uppercase" formControlName="IFSCCode" type="text" name=""
+                               placeholder="" id="">
+                        <!-- <div class="error" *ngIf="PaymentDetailsForm.get('IFSCCode').hasError('required') && DisplayError">
+                            IFSC Code is required.
+                          </div> -->
+
+                        <div class="error" *ngIf="PaymentDetailsForm.get('IFSCCode').hasError('pattern')">
+                          Enter Valid
+                          IFSC
+                          Code.
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <label>Reference No(Transaction No)<span class="req">*</span></label>
+                        <input class="form-control" formControlName="ReferrenceNo" type="text" name="" placeholder=""
+                               id="">
+                        <div class="error"
+                             *ngIf="PaymentDetailsForm.get('ReferrenceNo').hasError('required') && DisplayError">
+                          Referrence No is required.
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div *ngIf="IsChequeActive">
+                    <div class="row m-t-10">
+                      <div class="col-md-3">
+                        <label>Cheque No<span class="req">*</span></label>
+                        <input class="form-control" formControlName="chequeNo" type="text" name="" placeholder="" id="">
+                        <div class="error"
+                             *ngIf="PaymentDetailsForm.get('chequeNo').hasError('required') && DisplayError">
+                          Cheque Number is required.
+                        </div>
+                        <!-- <div class="error" *ngIf="PaymentDetailsForm.get('chequeNo').hasError('pattern')">only number allowed</div> -->
+                      </div>
+                      <div class="col-md-3">
+                        <label>Account Holder Name<span class="req">*</span></label>
+                        <input class="form-control" formControlName="accountHolderName" type="text" name=""
+                               placeholder="" id="">
+                        <div class="error"
+                             *ngIf="PaymentDetailsForm.get('accountHolderName').hasError('required') && DisplayError">
+                          Account Holder Name is required.
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <label>Bank Name</label>
+                        <input class="form-control" formControlName="bankName" type="text" name="" placeholder="" id="">
+                      </div>
+                      <div class="col-md-3">
+                        <label>Branch Name</label>
+                        <input class="form-control" formControlName="branchName" type="text" name="" placeholder=""
+                               id="">
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div *ngIf="IsUPIActive">
+                    <div class="row m-t-10">
+                      <div class="col-md-3">
+                        <label>Transaction Date<span class="req">*</span></label>
+                        <div class="input-group date">
+                          <input class="form-control" readonly [max]="maxDate" style="height:28px !important"
+                                 [owlDateTime]="dt2" formControlName="TransactionDate" [owlDateTimeTrigger]="dt2"
+                                 placeholder="">
+                          <span class="input-group-addon" [owlDateTimeTrigger]="dt2">
+                            <span><i class="fa fa-calendar"></i></span>
+                          </span>
+                          <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                        </div>
+                        <div class="error"
+                             *ngIf="PaymentDetailsForm.get('TransactionDate').hasError('required') && DisplayError">
+                          Transaction Date is required.
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <label>Transaction ID<span class="req">*</span></label>
+                        <input class="form-control" type="text" formControlName="ReferrenceNo"
+                               placeholder="Enter Transaction ID">
+                        <div class="error"
+                             *ngIf="PaymentDetailsForm.get('ReferrenceNo').hasError('required') && DisplayError">
+                          Transaction ID is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer pull-left p-0 m-t-10">
+                  <button type="submit" id="savepayment" class="btn btn-primary ">Save</button>
+                  <button type="button" class="btn btn-primary" (click)="ResetPaymentDetails();">Clear</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="card" *ngIf="LeadDetails.dealStatus > 5">
+            <div class="card-header">
+              Payment Details History
+              <!-- <button [disabled]='IsPaymentBlock == false' data-toggle="modal" data-target="#PaymentModal"
+                  style="float: right; padding: 6px 9px;" class="btn btn-primary btn-small mt-30 mb-10 mr-10">
+                  Update Paymnent Details
+                </button> -->
+            </div>
+            <div class="card-body">
+              <div role="tabpanel" class="tab-pane active" id="step-1">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+                  <div class="table-responsive">
+                    <ag-grid-angular style="width: 100%; height: 300px;" [enableColResize]="true" [enableSorting]="true"
+                                     [enableFilter]="true" [pagination]="true" [paginationPageSize]="15" class="ag-theme-balham"
+                                     (cellClicked)='onCellClicked($event)' [rowData]="PaymentList" [columnDefs]="paymentColumnDefs"
+                                     [suppressDragLeaveHidesColumns]="true" [suppressColumnVirtualisation]="true"
+                                     (firstDataRendered)="autoSizeAll()" (gridReady)="onGridReady($event)" [floatingFilter]='true'
+                                     [modules]="modules" [frameworkComponents]="frameworkComponents">
+                    </ag-grid-angular>
+
+
+                  </div>
+
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div id="PaymentModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+
+      <div class="modal-content">
+        <div class="card" *ngIf="currentStatusActive">
+          <div class="card-header">
+            Add Payment Details
+            <!-- <button [disabled]='IsPaymentBlock == false' data-toggle="modal" data-target="#PaymentModal"
+                style="float: right; padding: 6px 9px;" class="btn btn-primary btn-small mt-30 mb-10 mr-10">
+                Update Paymnent Details
+              </button> -->
+          </div>
+          <div class="card-body">
+            <div role="tabpanel" class="tab-pane active" id="step-1">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+                <form [formGroup]="PaymentDetailsForm" (ngSubmit)="PaymentDetailsSubmit()">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Payment Details</h4>
+                    <button type="button" class="close" #paymentclosemodal data-dismiss="modal"
+                            (click)="ResetPaymentDetails();">
+                      &times;
+                    </button>
+
+                  </div>
+                  <div class="modal-body">
+
+
+                    <div class="row ">
+                      <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
+                        <label>Payment From<span class="req">*</span></label>
+                        <select class="form-control" formControlName="paymentFrom" (change)="GetPaymentFrom($event);"
+                                #clientp>
+                          <option selected value="">-Select-</option>
+                          <option value="UJB" *ngIf="AllowUJb">UJB</option>
+                          <option value="{{clientPartnerDetails.userId}}">{{clientPartnerDetails.name}}</option>
+                        </select>
+                        <div class="error"
+                             *ngIf="PaymentDetailsForm.get('paymentFrom').hasError('required') && DisplayError">
+                          Payment From is required.
+                        </div>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
+                        <label>Payment To<span class="req">*</span></label>
+                        <select class="form-control" formControlName="paymentTo" (change)="GetPaymentTo($event);">
+                          <option selected value="">-Select-</option>
+                          <option *ngIf="IsClinetPartner" value="UJB">UJB</option>
+                          <option *ngIf="IsUJB" value="{{mentorDetails.id}}">{{mentorDetails.name}}</option>
+                          <option *ngIf="IsUJB" value="{{shareReceivedByPartner.partnerID}}">
+                            {{referredByDetails.referredByName}}
+                          </option>
+
+                        </select>
+                        <div class="error"
+                             *ngIf="PaymentDetailsForm.get('paymentTo').hasError('required') && DisplayError">
+                          Payment To is required.
+                        </div>
+                      </div>
+
+
+                    </div>
+                    <div class="row ref-div" *ngIf="balanceRegisterationAmt>0">
+                      <div class="col-md-12">
+                        <label>
+                          <span class="req">
+                            Registration fee Amount paid by this Referral earn by partner
+                            {{balanceRegisterationAmt}}
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row ref-div" *ngIf="IsClinetPartner">
+                      <div class="col-md-6">
+                        <label>Ammout recieved by Client partner<span class="req">*</span></label>
+                        <input class="form-control" formControlName="CPReceivedAmt" type="text" name=""
+                               placeholder="Enter Amount" id="" #CPReceivedAmt
+                               (change)="GetSharedValueUJB(CPReceivedAmt.value)">
+                        <div class="error"
+                             *ngIf="PaymentDetailsForm.get('CPReceivedAmt').hasError('required') && DisplayError">
+                          Recieved Amount is required.
+                        </div>
+                        <div class="error" *ngIf="PaymentDetailsForm.get('CPReceivedAmt').hasError('pattern')">
+                          Enter
+                          Valid
+                          Amount
+                        </div>
+                      </div>
+                      <!-- <div class="col-md-6">
+                          <label>
+                            Agreed amount to be shared with UJB: {{DisplayAmount}}
+                            <span> Rs </span>
+                            <span *ngIf="IsPercentage">({{productValue}} %)</span>
+                          </label>
+
+                        </div> -->
+                    </div>
+
+                    <div class="row ref-div">
+                      <div class="col-md-6">
+                        l>
+                        <label>Mode Of Payment<span class="req">*</span></label>
+                        <select class="form-control" formControlName="paymentType" (change)="GetPaymentValue($event);">
+                          <option selected value="">-Select-</option>
+                          <option value="1">Cheque</option>
+                          <option value="2">Cash</option>
+                          <option value="3">NEFT</option>
+                          <option value="4">Google Pay</option>
+                          <option value="5">Phone Pay</option>
+                          <option value="6">Other</option>
+                        </select>
+                        <div class="error"
+                             *ngIf="PaymentDetailsForm.get('paymentType').hasError('required') && DisplayError">
+                          Payment Type is required.
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Amount<span class="req">* </span></label><span *ngIf="IsPercentage && IsClinetPartner">({{productValue}}%)</span>
+                        <span *ngIf="!IsClinetPartner && Ismentor=='Partner'">(50 %)</span>
+                        <span *ngIf="!IsClinetPartner && Ismentor=='Mentor'">(30 %)</span>
+                        <input class="form-control" formControlName="amount" type="text" name="" placeholder="" id=""
+                               value="{{pendingAmt}}">
+                        <div class="error"
+                             *ngIf="PaymentDetailsForm.get('amount').hasError('required') && DisplayError">
+                          Amount is required.
+                        </div>
+                        <div class="error" *ngIf="PaymentDetailsForm.get('amount').hasError('pattern')">
+                          Enter Valid
+                          Amount
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row ref-div" style="margin-bottom: 20px;">
+                      <div class="col-md-6">
+                        <label>Payment Date<span class="req">*</span></label>
+                        <div class="input-group date">
+                          <input class="form-control" readonly [max]="maxDate" [owlDateTime]="dt1"
+                                 [owlDateTimeTrigger]="dt1" placeholder="" formControlName="paymentDate">
+                          <span class="input-group-addon" [owlDateTimeTrigger]="dt1">
+                            <span><i class="fa fa-calendar"></i></span>
+                          </span>
+                          <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                        </div>
+                        <div class="error"
+                             *ngIf="PaymentDetailsForm.get('paymentDate').hasError('required') && DisplayError">
+                          Payment Date is required.
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Description</label>
+                        <input class="form-control" formControlName="Description" type="text" name="" placeholder=""
+                               id="">
+
+                      </div>
+                    </div>
+
+
+                    <div *ngIf="IsCashActive" class="ref-div">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>Name<span class="req">*</span></label>
+                          <input class="form-control" formControlName="cashPaidName" type="text" name="" placeholder=""
+                                 id="">
+                          <div class="error"
+                               *ngIf="PaymentDetailsForm.get('cashPaidName').hasError('required') && DisplayError">
+                            Name is required.
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Mobile Number<span class="req">*</span></label>
+
+                          <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text p-0">
+                                <select class="form-control countr-sl" formControlName="countryCode">
+                                  <option *ngFor="let c of CountryList" [value]="c.code">{{c.code}}</option>
+                                </select>
+                              </div>
+                            </div>
+                            <input type="text" class="form-control" id="inputmobileNumber" maxlength="10"
+                                   formControlName="mobileNumber" data-parsley-trigger="change" placeholder="">
+                          </div>
+                          <div class="error"
+                               *ngIf="PaymentDetailsForm.get('mobileNumber').hasError('required') && DisplayError">
+                            Mobile Number is required.
+                          </div>
+                          <div class="error" *ngIf="PaymentDetailsForm.get('mobileNumber').hasError('maxlength')">
+                            Maxmium 10
+                            number allowed
+                          </div>
+                          <div class="error" *ngIf="PaymentDetailsForm.get('mobileNumber').hasError('minlength')">
+                            Enter minimum 10
+                            number
+                          </div>
+                          <div class="error" *ngIf="PaymentDetailsForm.get('mobileNumber').hasError('pattern')">
+                            Only number
+                            allowed
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row ref-div">
+                        <div class="col-md-6">
+                          <label>Email Id</label>
+                          <input class="form-control" formControlName="emailId" type="text" name="" placeholder=""
+                                 id="">
+                          <div class="error" *ngIf="PaymentDetailsForm.get('emailId').hasError('pattern')">
+                            Enter Valid
+                            Email
+                            Id
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="IsNetBankingActive" class="ref-div">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>IFSC Code<span class="req">*</span></label>
+                          <input class="form-control" maxlength="11" oninput="this.value = this.value.toUpperCase()"
+                                 style="text-transform: uppercase" formControlName="IFSCCode" type="text" name=""
+                                 placeholder="" id="">
+                          <div class="error"
+                               *ngIf="PaymentDetailsForm.get('IFSCCode').hasError('required') && DisplayError">
+                            IFSC Code is required.
+                          </div>
+
+                          <div class="error" *ngIf="PaymentDetailsForm.get('IFSCCode').hasError('pattern')">
+                            Enter Valid
+                            IFSC
+                            Code.
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Reference No(Transaction No)<span class="req">*</span></label>
+                          <input class="form-control" formControlName="ReferrenceNo" type="text" name="" placeholder=""
+                                 id="">
+                          <div class="error"
+                               *ngIf="PaymentDetailsForm.get('ReferrenceNo').hasError('required') && DisplayError">
+                            Referrence No is required.
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div *ngIf="IsChequeActive" class="ref-div">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>Cheque No<span class="req">*</span></label>
+                          <input class="form-control" formControlName="chequeNo" type="text" name="" placeholder=""
+                                 id="">
+                          <div class="error"
+                               *ngIf="PaymentDetailsForm.get('chequeNo').hasError('required') && DisplayError">
+                            Cheque Number is required.
+                          </div>
+                          <!-- <div class="error" *ngIf="PaymentDetailsForm.get('chequeNo').hasError('pattern')">only number allowed</div> -->
+                        </div>
+                        <div class="col-md-6">
+                          <label>Account Holder Name<span class="req">*</span></label>
+                          <input class="form-control" formControlName="accountHolderName" type="text" name=""
+                                 placeholder="" id="">
+                          <div class="error"
+                               *ngIf="PaymentDetailsForm.get('accountHolderName').hasError('required') && DisplayError">
+                            Account Holder Name is required.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row ref-div">
+                        <div class="col-md-6">
+                          <label>Bank Name</label>
+                          <input class="form-control" formControlName="bankName" type="text" name="" placeholder=""
+                                 id="">
+                        </div>
+                        <div class="col-md-6">
+                          <label>Branch Name</label>
+                          <input class="form-control" formControlName="branchName" type="text" name="" placeholder=""
+                                 id="">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="IsUPIActive" class="ref-div">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>Transaction Date<span class="req">*</span></label>
+                          <div class="input-group date">
+                            <input class="form-control" readonly [max]="maxDate" [owlDateTime]="dt2"
+                                   formControlName="TransactionDate" [owlDateTimeTrigger]="dt2" placeholder="">
+                            <span class="input-group-addon" [owlDateTimeTrigger]="dt2">
+                              <span><i class="fa fa-calendar"></i></span>
+                            </span>
+                            <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                          </div>
+                          <div class="error"
+                               *ngIf="PaymentDetailsForm.get('TransactionDate').hasError('required') && DisplayError">
+                            Transaction Date is required.
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Transaction Id<span class="req">*</span></label>
+                          <input class="form-control" type="text" formControlName="ReferrenceNo"
+                                 placeholder="Enter Transaction Id">
+                          <div class="error"
+                               *ngIf="PaymentDetailsForm.get('ReferrenceNo').hasError('required') && DisplayError">
+                            Referrence No is required.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary ">Save</button>
+                    <button type="button" class="btn btn-primary" (click)="ResetPaymentDetails();">Clear</button>
+                  </div>
+                </form>
+
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div id="dealStatusModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Deal Status History</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <!-- <button type="button" class="close" #paymentclosemodal data-dismiss="modal" (click)="ResetPaymentDetails();">&times;</button> -->
+        </div>
+        <div class="modal-body">
+
+          <div class="card">
+            <!-- <div class="card-header">Deal Status History</div> -->
+            <div class="card-body">
+              <div role="tabpanel" class="tab-pane active" id="step-1">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+                  <!-- <div class="card-body"> -->
+                  <div class="table-responsive">
+                    <ag-grid-angular style="width: 100%; height: 300px;" [enableColResize]="true" [enableSorting]="true"
+                                     [enableFilter]="true" [pagination]="true" [paginationPageSize]="15" class="ag-theme-balham"
+                                     [rowData]="StatusHistory" [columnDefs]="columnDefs" [suppressDragLeaveHidesColumns]="true"
+                                     [suppressColumnVirtualisation]="true" (gridReady)="onGridReady($event)" [floatingFilter]='true'
+                                     [modules]="modules" [frameworkComponents]="frameworkComponents">
+                    </ag-grid-angular>
+                  </div>
+                </div>
+
+                <!-- <div class="col-md-12 text-right p-0"> -->
+                <!-- </div> -->
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <button id="openstatusModalButton" style="height: 0px; width:0px;color: #fff;background-color: #efeff6;
+  border-color: #efeff6;" type="button" class="btn btn-info btn-lg" data-toggle="modal"
+          data-target="#confirmdealstatusModal" [hidden]="true"></button>
+  <div id="confirmdealstatusModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+        <form #closemodal data-dismiss="modal">
+          <div class="modal-header">
+            <!-- <h4 class="modal-title">Save and Next</h4> -->
+            <button type="button" class="close" #closemodal data-dismiss="modal">&times;</button>
+
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12" style="text-align: center;">
+                <label>Do you want to update deal status?</label>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+
+            <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal"
+                    (click)="Confirmdealstatus(true)">
+              Yes
+            </button>
+            <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal"
+                    (click)="Confirmdealstatus(false)">
+              No
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+  <button id="openModalButton" type="button" style="height: 0px; width:0px;color: #fff;background-color: #efeff6;
+  border-color: #efeff6;" class="btn btn-info btn-lg" data-toggle="modal"
+          data-target="#confirmdealvalueModal" [hidden]="true"></button>
+  <div id="confirmdealvalueModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+        <form #closemodal data-dismiss="modal">
+          <div class="modal-header">
+            <!-- <h4 class="modal-title">Save and Next</h4> -->
+            <button type="button" class="close" #closemodal data-dismiss="modal">&times;</button>
+
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12" style="text-align: center;">
+                <label>Do you want to save the deal value?</label>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+
+            <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal"
+                    (click)="savedealvalue(true)">
+              Yes
+            </button>
+            <button type="button" class="btn btn-primary" #closemodal data-dismiss="modal"
+                    (click)="savedealvalue(false)">
+              No
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>

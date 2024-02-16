@@ -1,0 +1,66 @@
+
+/* @import "../node_modules/ng-pick-datetime/assets/style/picker.min.css"; */
+
+
+/* @import "~@ag-grid-community/all-modules/dist/styles/ag-grid.css"; */
+/* @import "~@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css"; */
+
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+
+
+.owl-dt-container{
+  font-size: 16px !important;
+}
+.owl-dt-calendar-multi-year-view .owl-dt-calendar-table {
+  /*top: 30px;
+  position: absolute;*/
+}
+.owl-dt-calendar-view {
+  flex: 0;
+  top: -5px;
+  position: relative;
+}
+/*.owl-dt-control-arrow-button {
+  left: -10px;
+  position: relative;
+  top: -60px;
+}*/
+.owl-dt-control-button-content {
+}
+.owl-dt-calendar-table .owl-dt-calendar-header .owl-dt-calendar-table-divider:after {
+  height: 0px;
+}
+.owl-dt-calendar-multi-year-view .owl-dt-calendar-table .owl-dt-calendar-header th {
+  font-size: 14px !important;
+  text-align: center;
+}
+.owl-dt-calendar-table .owl-dt-calendar-cell-selected {
+  background-color: #56a1bd;
+}
+.owl-dt-calendar-table .owl-dt-calendar-header .owl-dt-weekdays th {
+  color:#000;
+}
+.owl-dt-calendar-table .owl-dt-calendar-cell-selected.owl-dt-calendar-cell-today {
+  box-shadow: inset 0 0 0 0px rgba(255,255,255,.85);
+}
+
+
+
+
+.custom-date-filter a {
+position: absolute;
+right: 20px;
+color: rgba(0, 0, 0, 0.54);
+cursor: pointer;
+}
+.custom-date-filter:after {
+/* position: absolute; */
+content: '\f073';
+display: block;
+font-weight: 400;
+font-family: 'Font Awesome 5 Free';
+right: 5px;
+pointer-events: none;
+color: rgba(0, 0, 0, 0.54);
+}
